@@ -3,6 +3,7 @@ package com.digitalojt.web.validation;
 import org.thymeleaf.util.StringUtils;
 
 import com.digitalojt.web.consts.ErrorMessage;
+import com.digitalojt.web.consts.SearchParams;
 import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.util.ParmCheckUtil;
 
@@ -21,9 +22,6 @@ public class CenterInfoFormValidatorImpl implements ConstraintValidator<CenterIn
 	 */
 	@Override
 	public boolean isValid(CenterInfoForm form, ConstraintValidatorContext context) {
-
-		// 最大文字数
-		final int MAX_LENGTH = 20;
 
 		boolean allFieldsEmpty = StringUtils.isEmpty(form.getCenterName()) &&
 				StringUtils.isEmpty(form.getRegion());
@@ -48,11 +46,7 @@ public class CenterInfoFormValidatorImpl implements ConstraintValidator<CenterIn
 			}
 
 			// 文字数チェック
-			/**
-			 *  TODO:Formクラスをシンプルにしたく、@Sizeを使わずこちらで桁数チェックを行いました。
-			 *  	 車輪の再発明なので、しないほうがいいでしょうか？
-			 */
-			if (form.getCenterName().length() > MAX_LENGTH) {
+			if (form.getCenterName().length() > SearchParams.MAX_LENGTH) {
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate(ErrorMessage.CENTER_NAME_LENGTH_ERROR_MESSAGE)
 						.addConstraintViolation();

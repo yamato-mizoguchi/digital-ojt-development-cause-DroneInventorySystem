@@ -33,20 +33,4 @@ public class CenterInfoForm {
 	 * 容量(To)
 	 */
 	private Integer storageCapacityTo;
-
-	// 容量(From)初期値
-	final int INITIAL_CAPACITY_FROM = 10;
-
-	/**
-	 * 容量(From)のデフォルト値（10）を設定
-	 * 
-	 * @return
-	 */
-	public Integer getStorageCapacityFrom() {
-
-		if (storageCapacityTo != null && storageCapacityFrom == null) {
-			return INITIAL_CAPACITY_FROM;
-		}
-		return storageCapacityFrom;
-	}
 }

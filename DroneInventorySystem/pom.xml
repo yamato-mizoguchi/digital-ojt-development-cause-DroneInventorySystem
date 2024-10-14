@@ -78,7 +78,7 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- lombac -->
+		<!-- lomboc -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

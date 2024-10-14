@@ -67,18 +67,18 @@ public class CenterInfoService {
 	 */
 	private List<CenterInfo> searchCenterInfoData(List<CenterInfo> centerInfoList, String centerName, String region) {
 
-		List<CenterInfo> list = new ArrayList<>();
+		List<CenterInfo> hitCenterInfoList = new ArrayList<>();
 		
 		// 引数の文字列と合致する要素のみリストに追加
 		centerInfoList.forEach(item -> {
 			if (centerName.equals(item.getCenterName()) && region.equals(item.getAddress())
 					|| StringUtils.isEmpty(centerName) && item.getAddress().contains(region)
 					|| StringUtils.isEmpty(region) && item.getCenterName().contains(centerName)) {
-				list.add(item);
+				hitCenterInfoList.add(item);
 			}
 		});
 
-		return list;
+		return hitCenterInfoList;
 	}
 
 	/**

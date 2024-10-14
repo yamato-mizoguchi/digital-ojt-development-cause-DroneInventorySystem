@@ -20,8 +20,6 @@ public interface CenterInfoRepository extends JpaRepository<CenterInfo, Integer>
 	/**
 	 * 引数に合致する在庫センター情報を取得
 	 * 
-	 * TODO: カスタムクエリーを使う際は、QueryDSLなどの方が適切でしょうか？
-	 * 
 	 * @param centerName
 	 * @param region
 	 * @param storageCapacityFrom
@@ -31,8 +29,6 @@ public interface CenterInfoRepository extends JpaRepository<CenterInfo, Integer>
 	@Query("SELECT s FROM CenterInfo s WHERE " +
 			"(:centerName = '' OR s.centerName LIKE %:centerName%) AND " +
 			"(:region = '' OR s.address LIKE %:region%) AND " +
-			"(:storageCapacityFrom IS NULL OR s.currentStorageCapacity >= :storageCapacityFrom) AND " +
-			"(:storageCapacityTo IS NULL OR s.currentStorageCapacity <= :storageCapacityTo) AND " +
 			"(s.operationalStatus = 0)")
 	List<CenterInfo> findByCenterNameAndRegionAndStorageCapacity(
 			String centerName,

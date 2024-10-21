@@ -3,7 +3,7 @@ package com.digitalojt.web.consts;
 /**
  * URL定数クラス
  *
- * @author your name
+ * @author yamato mizoguchi
  * 
  */
 public class UrlConsts {

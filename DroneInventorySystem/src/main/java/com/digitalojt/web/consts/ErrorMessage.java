@@ -3,7 +3,7 @@ package com.digitalojt.web.consts;
 /**
  * エラーメッセージ定数クラス
  * 
- * @author your name
+ * @author yamato mizoguchi
  *
  */
 public class ErrorMessage {

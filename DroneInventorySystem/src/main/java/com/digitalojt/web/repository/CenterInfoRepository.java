@@ -11,7 +11,7 @@ import com.digitalojt.web.entity.CenterInfo;
 /**
  * センター情報テーブルリポジトリー
  *
- * @author your name
+ * @author yamato mizoguchi
  * 
  */
 @Repository

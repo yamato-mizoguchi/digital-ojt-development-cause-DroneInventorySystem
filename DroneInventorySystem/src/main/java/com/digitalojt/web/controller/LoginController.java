@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * ログイン画面のコントローラークラス
  * 
- * @author your name
+ * @author yamato mizoguchi
  *
  */
 @Controller

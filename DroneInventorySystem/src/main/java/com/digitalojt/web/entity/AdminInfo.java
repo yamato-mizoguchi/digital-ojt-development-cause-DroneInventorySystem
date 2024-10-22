@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * 管理者情報Entity
  * 
- * @author your name
+ * @author yamato mizoguchi
  *
  */
 @Data

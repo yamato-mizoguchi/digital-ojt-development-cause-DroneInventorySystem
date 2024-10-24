@@ -25,6 +25,9 @@ public class UrlConsts {
 
 	// 在庫センター情報画面 検索
 	public static final String CENTER_INFO_SEARCH = "/admin/centerInfo/search";
+	
+	// 分類情報画面
+	public static final String CATEGORY_INFO = "/admin/categoryInfo";
 
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = {LOGIN, AUTHENTICATE};

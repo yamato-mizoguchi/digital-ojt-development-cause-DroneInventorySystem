@@ -9,9 +9,20 @@
   <body>
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">Hello world</h6>
+					<h6 class="m-0 font-weight-bold text-primary">分類情報管理</h6>
 		</div>
 		<div class="card-body">
+			
+			<!-- 分類情報テーブル -->
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<tbody>
+						<tr th:each="item : ${categoryInfoList}">
+							<td Style="text-align:center"> [[${item.categoryName}]] </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
   </body>

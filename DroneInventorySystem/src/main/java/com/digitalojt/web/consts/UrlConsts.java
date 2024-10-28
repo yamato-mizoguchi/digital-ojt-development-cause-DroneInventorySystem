@@ -28,6 +28,9 @@ public class UrlConsts {
 	
 	// 分類情報画面
 	public static final String CATEGORY_INFO = "/admin/categoryInfo";
+	
+	// 分類情報画面 検索
+	public static final String CATEGORY_INFO_SEARCH = "/admin/categoryInfo/search";
 
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = {LOGIN, AUTHENTICATE};

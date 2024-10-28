@@ -13,13 +13,22 @@ public class ErrorMessage {
 
 	// すべての項目が空の場合のエラーメッセージ
 	public static final String ALL_FIELDS_EMPTY_ERROR_MESSAGE = "allField.empty";
+	
+	// 分類名ですべての項目が空の場合のエラーメッセージ
+	public static final String CATEGORY_ALL_FIELDS_EMPTY_ERROR_MESSAGE = "categoryName.allField.empty";
 
 	// 空文字検索に関するエラーメッセージ
 	public static final String UNEXPECTED_INPUT_ERROR_MESSAGE = "unexpected.input";
 
 	// 不正な文字列を使用した検索に関するエラーメッセージ
 	public static final String INVALID_INPUT_ERROR_MESSAGE = "invalid.input";
+	
+	// 分類名で不正な文字列を使用した検索に関するエラーメッセージ
+	public static final String CATEGORY_INVALID_INPUT_ERROR_MESSAGE = "categoryName.invalid.input";
 
 	// 文字超過に関するエラーメッセージ
 	public static final String CENTER_NAME_LENGTH_ERROR_MESSAGE = "centerName.length.wrongInput";
+	
+	// 文字超過に関するエラーメッセージ
+	public static final String CATEGORY_NAME_LENGTH_ERROR_MESSAGE = "categoryName.length.wrongInput";
 }

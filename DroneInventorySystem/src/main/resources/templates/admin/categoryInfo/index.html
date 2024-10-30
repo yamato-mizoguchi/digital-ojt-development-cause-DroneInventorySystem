@@ -19,7 +19,7 @@
 					<label for="searchTerm" class="mr-2">検索条件</label>
 					
 					<label for="searchTerm" class="mr-2">分類名</label>
-			 		<input type="text" id="searchTerm" name="categoryName" class="form-control mr-2">
+			 		<input type="text" th:value="${searchTerm}" id="searchTerm" name="categoryName" class="form-control mr-2">
 					
 			 		<button type="submit" class="btn btn-primary">検索</button>
 			 	</form>

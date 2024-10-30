@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.CategoryInfo;
@@ -61,8 +62,11 @@ public class CategoryInfoController {
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CATEGORY_INFO_SEARCH)
-	public String search(Model model, @Valid CategoryInfoForm form, BindingResult bindingResult) {
-
+	public String search(Model model, @RequestParam(name = "categoryName") String searchTerm, @Valid CategoryInfoForm form, BindingResult bindingResult) {
+		
+		// 検索キーワードを検索ボックスに保持
+		model.addAttribute("searchTerm", searchTerm);
+		
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 			

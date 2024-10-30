@@ -8,6 +8,7 @@ import org.thymeleaf.util.StringUtils;
 
 import com.digitalojt.web.consts.CategoryInfoConsts;
 import com.digitalojt.web.entity.CategoryInfo;
+import com.digitalojt.web.repository.CategoryInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CategoryInfoService {
 	
+	/** 分類情報テーブル リポジトリー */
+	private final CategoryInfoRepository repository;
+	
 	/**
 	 * 分類情報を全件検索で取得
 	 * 
@@ -29,8 +33,9 @@ public class CategoryInfoService {
 	public List<CategoryInfo> getCategoryInfoData() {
 
 		// 分類情報作成
-		List<CategoryInfo> categoryInfoList = createCategoryInfo();
-
+//		List<CategoryInfo> categoryInfoList = createCategoryInfo();
+		List<CategoryInfo> categoryInfoList = repository.findAll();
+		
 		return categoryInfoList;
 	}
 	
@@ -43,8 +48,9 @@ public class CategoryInfoService {
 	public List<CategoryInfo> getCategoryInfoData(String categoryName) {
 
 		// 分類情報作成
-		List<CategoryInfo> categoryInfoList = createCategoryInfo();
-
+//		List<CategoryInfo> categoryInfoList = createCategoryInfo();
+		List<CategoryInfo> categoryInfoList = repository.findAll();
+		
 		// 検索処理
 		categoryInfoList = searchCategoryInfoData(categoryInfoList, categoryName);
 

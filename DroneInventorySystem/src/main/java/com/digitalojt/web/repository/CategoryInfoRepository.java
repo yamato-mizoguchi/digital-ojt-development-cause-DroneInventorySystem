@@ -25,5 +25,5 @@ public interface CategoryInfoRepository extends JpaRepository<CategoryInfo, Inte
 	 * @return paramで検索した結果
 	 */
 	@Query("SELECT c FROM CategoryInfo c WHERE c.categoryName = :categoryName")
-    List<CategoryInfo> findByCategoryName(@Param("categoryName") String categoryName);
+   List<CategoryInfo> findByCategoryName(String categoryName);
 }

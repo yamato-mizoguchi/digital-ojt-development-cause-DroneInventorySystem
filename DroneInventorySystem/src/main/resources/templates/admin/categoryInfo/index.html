@@ -16,7 +16,7 @@
 			<!-- 検索フォーム -->
 			<div class="search-container">
 				<form class="form-inline" method="post" th:action="@{'/admin/categoryInfo/search'}" th:object="${CategoryInfoForm}">
-					<label for="searchTerm" class="mr-2">検索条件</label>
+					<label for="searchTerm" class="mr-2"><u>検索条件</u></label>
 					
 					<label for="searchTerm" class="mr-2">分類名</label>
 			 		<input type="text" th:value="${searchTerm}" id="searchTerm" name="categoryName" class="form-control mr-2">

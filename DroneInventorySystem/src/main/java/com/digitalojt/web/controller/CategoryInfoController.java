@@ -73,6 +73,12 @@ public class CategoryInfoController {
 			// エラーメッセージをプロパティファイルから取得
 			String errorMsg = MessageManager.getMessage(messageSource, bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
+			
+			// 分類情報画面に表示するデータを取得
+			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
+			
+			// 画面表示用に分類情報リストをセット
+			model.addAttribute("categoryInfoList", categoryInfoList);
 
 			return "admin/categoryInfo/index";
 		}

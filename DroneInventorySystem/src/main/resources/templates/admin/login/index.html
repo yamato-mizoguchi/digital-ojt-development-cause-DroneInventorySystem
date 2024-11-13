@@ -109,6 +109,7 @@
 		<div class="form">
 			<form class="register-form" th:action="@{'/authenticate'}" th:method="POST" th:object="${LoginForm}">
 				<!-- ログインフォーム -->
+				<input type="hidden" name="csrf" value="${csrf.token}">
 				<input type="text" name="adminId" placeholder="adminId" />
 				<input type="password" name="password" placeholder="password" />
 				<button type="submit">login</button>

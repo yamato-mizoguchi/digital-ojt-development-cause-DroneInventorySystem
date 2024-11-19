@@ -16,7 +16,6 @@ public class BeanDefine {
 
 	/**
 	 * PasswordEncoderをDI
-	 * TODO: パスワードは必ずハッシュ化してください。
 	 * 
 	 * @return
 	 */

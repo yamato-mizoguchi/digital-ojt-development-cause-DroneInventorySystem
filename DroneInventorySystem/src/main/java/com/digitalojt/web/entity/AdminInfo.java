@@ -1,7 +1,10 @@
 package com.digitalojt.web.entity;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +12,7 @@ import lombok.Setter;
 /**
  * 管理者情報Entity
  * 
- * @author your name
+ * @author yamato mizoguchi
  *
  */
 @Data
@@ -30,7 +33,32 @@ public class AdminInfo {
 	private String adminName;
 	
 	/**
+	 * メール
+	 */
+	private String mail;
+	
+	/**
+	 * 電話番号
+	 */
+	private String phoneNumber;
+	
+	/**
 	 * パスワード
 	 */
 	private String password;
+	
+	/**
+	 * 削除フラグ
+	 */
+	private String deleteFlag;
+	
+	/**
+	 * 作成日
+	 */
+	private Timestamp create_date;
+	
+	/**
+	 * 更新日
+	 */
+	private Timestamp update_date;
 }

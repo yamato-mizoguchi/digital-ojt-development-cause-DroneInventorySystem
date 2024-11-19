@@ -1,26 +1,28 @@
 package com.digitalojt.web.consts;
 
 /**
- * 不正文字を管理するEnumクラス
+ * 分類名の不正文字を管理するEnumクラス
  * 
  * @author yamato mizoguchi
  */
-public enum InvalidCharacter {
 
+public enum CategoryInvalidCharacter {
+	
+	HALF_WIDTH_SPACE(' '),
     CURLY_BRACE_OPEN('{'),
     CURLY_BRACE_CLOSE('}'),
     PARENTHESIS_OPEN('('),
     PARENTHESIS_CLOSE(')'),
-    EQUAL_SIGN('='),
-    AMPERSAND('&'),
+    SINGLE_QUOTE('\''),
+    ASTERISK('*'),
     SEMICOLON(';'),
     DOLLAR_SIGN('$'),
-    QUESTION_MARK('?'),
-    ASTERISK('*');
+    EQUAL_SIGN('='),
+    AMPERSAND('&');
 
     private final char character;
 
-    InvalidCharacter(char character) {
+    CategoryInvalidCharacter(char character) {
         this.character = character;
     }
 

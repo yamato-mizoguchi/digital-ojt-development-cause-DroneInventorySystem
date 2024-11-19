@@ -2,7 +2,7 @@ package com.digitalojt.web.util;
 
 import java.util.Arrays;
 
-import com.digitalojt.web.consts.InvalidCharacter;
+import com.digitalojt.web.consts.CategoryInvalidCharacter;
 
 /**
  * パラメーターチェックに関する処理を行うクラス
@@ -10,17 +10,17 @@ import com.digitalojt.web.consts.InvalidCharacter;
  * @author yamato mizoguchi
  *
  */
-public class ParmCheckUtil {
+public class CategoryParmCheckUtil {
 
 	/**
-	 * 不正文字チェック
+	 * 分類名の不正文字チェック
 	 *  
 	 * @param val
 	 * @return
 	 */
 	public static Boolean isParameterInvalid(String val) {
 
-		return Arrays.stream(InvalidCharacter.values())
+		return Arrays.stream(CategoryInvalidCharacter.values())
                 .anyMatch(invalidChar -> val.indexOf(invalidChar.getCharacter()) >= 0);
 	}
 }

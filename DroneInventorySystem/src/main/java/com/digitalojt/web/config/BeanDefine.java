@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * Bean定義クラス
  *
- * @author your name
+ * @author yamato mizoguchi
  * 
  */
 @Configuration
@@ -16,7 +16,6 @@ public class BeanDefine {
 
 	/**
 	 * PasswordEncoderをDI
-	 * TODO: パスワードは必ずハッシュ化してください。
 	 * 
 	 * @return
 	 */

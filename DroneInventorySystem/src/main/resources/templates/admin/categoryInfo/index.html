@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}"
+ >
+  <head>
+    <title>InvenTrack</title>
+  </head>
+  <body>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">分類情報管理</h6>
+		</div>
+		<div class="card-body">
+			
+			<!-- 検索フォーム -->
+			<div class="search-container">
+				<form class="form-inline" method="post" th:action="@{'/admin/categoryInfo/search'}" th:object="${CategoryInfoForm}">
+					<label for="searchTerm" class="mr-2"><u>検索条件</u></label>
+					
+					<label for="searchTerm" class="mr-2">分類名</label>
+			 		<input type="text" th:value="${searchTerm}" id="searchTerm" name="categoryName" class="form-control mr-2">
+					
+			 		<button type="submit" class="btn btn-primary">検索</button>
+			 	</form>
+				<!-- エラーメッセージの表示 -->
+				<div th:if="${errorMsg != null}" class="text-danger">
+					<p th:text="${errorMsg}"></p>
+				</div>
+			</div>
+			
+			<!-- 分類情報テーブル -->
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<tbody>
+						<tr th:each="item : ${categoryInfoList}">
+							<td> [[${item.categoryName}]] </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+  </body>
+</html>

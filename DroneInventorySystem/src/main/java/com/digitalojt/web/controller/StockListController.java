@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.digitalojt.web.consts.MessageConsts;
 import com.digitalojt.web.consts.UrlConsts;
 
 /**
@@ -23,8 +24,8 @@ public class StockListController extends AbstractController {
 	 */
 	@GetMapping(UrlConsts.STOCK_LIST)
 	public String index() {
-		Logger logger = LoggerFactory.getLogger("在庫一覧画面へのアクセス");
-        logger.info("");
+		Logger logger = LoggerFactory.getLogger(StockListController.class);
+        logger.info(MessageConsts.STOCK_LIST_ACCESS);
 		return "admin/stockList/index";
 	}
 }

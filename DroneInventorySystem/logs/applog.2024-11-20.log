@@ -582,3 +582,37 @@
 （INFO）（2024/11/20 13:00:47.262）（IP）（ID）（org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean）（Closing JPA EntityManagerFactory for persistence unit 'default'）
 （INFO）（2024/11/20 13:00:47.263）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-18 - Shutdown initiated...）
 （INFO）（2024/11/20 13:00:47.268）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-18 - Shutdown completed.）
+（INFO）（2024/11/20 14:03:24.278）（IP）（ID）（com.digitalojt.web.DroneInventorySystemApplication）（Starting DroneInventorySystemApplication using Java 17.0.12 with PID 19548 (C:\Documents\digital-ojt-development-cause-DroneInventorySystem\DroneInventorySystem\target\classes started by z2240246 in C:\Documents\digital-ojt-development-cause-DroneInventorySystem\DroneInventorySystem)）
+（INFO）（2024/11/20 14:03:24.280）（IP）（ID）（com.digitalojt.web.DroneInventorySystemApplication）（No active profile set, falling back to 1 default profile: "default"）
+（INFO）（2024/11/20 14:03:24.318）（IP）（ID）（org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor）（Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable）
+（INFO）（2024/11/20 14:03:24.318）（IP）（ID）（org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor）（For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'）
+（INFO）（2024/11/20 14:03:24.819）（IP）（ID）（org.springframework.data.repository.config.RepositoryConfigurationDelegate）（Bootstrapping Spring Data JPA repositories in DEFAULT mode.）
+（INFO）（2024/11/20 14:03:24.873）（IP）（ID）（org.springframework.data.repository.config.RepositoryConfigurationDelegate）（Finished Spring Data repository scanning in 42 ms. Found 3 JPA repository interfaces.）
+（INFO）（2024/11/20 14:03:25.316）（IP）（ID）（org.springframework.boot.web.embedded.tomcat.TomcatWebServer）（Tomcat initialized with port 8080 (http)）
+（INFO）（2024/11/20 14:03:25.323）（IP）（ID）（org.apache.coyote.http11.Http11NioProtocol）（Initializing ProtocolHandler ["http-nio-8080"]）
+（INFO）（2024/11/20 14:03:25.327）（IP）（ID）（org.apache.catalina.core.StandardService）（Starting service [Tomcat]）
+（INFO）（2024/11/20 14:03:25.327）（IP）（ID）（org.apache.catalina.core.StandardEngine）（Starting Servlet engine: [Apache Tomcat/10.1.28]）
+（INFO）（2024/11/20 14:03:25.373）（IP）（ID）（org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]）（Initializing Spring embedded WebApplicationContext）
+（INFO）（2024/11/20 14:03:25.373）（IP）（ID）（org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext）（Root WebApplicationContext: initialization completed in 1054 ms）
+（INFO）（2024/11/20 14:03:25.396）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Starting...）
+（INFO）（2024/11/20 14:03:25.588）（IP）（ID）（com.zaxxer.hikari.pool.HikariPool）（HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@533765cd）
+（INFO）（2024/11/20 14:03:25.590）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Start completed.）
+（INFO）（2024/11/20 14:03:25.603）（IP）（ID）（org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration）（H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/stock_mng'）
+（INFO）（2024/11/20 14:03:25.959）（IP）（ID）（org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo）（No LoadTimeWeaver setup: ignoring JPA class transformer）
+（INFO）（2024/11/20 14:03:26.679）（IP）（ID）（org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean）（Initialized JPA EntityManagerFactory for persistence unit 'default'）
+（INFO）（2024/11/20 14:03:26.875）（IP）（ID）（org.springframework.data.jpa.repository.query.QueryEnhancerFactory）（Hibernate is in classpath; If applicable, HQL parser will be used.）
+（WARN）（2024/11/20 14:03:27.144）（IP）（ID）（org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration）（spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning）
+（INFO）（2024/11/20 14:03:27.347）（IP）（ID）（org.springframework.security.web.DefaultSecurityFilterChain）（Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@fb59768, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7388cbfc, org.springframework.security.web.context.SecurityContextHolderFilter@7a4ea675, org.springframework.security.web.header.HeaderWriterFilter@66c8b4d8, org.springframework.security.web.csrf.CsrfFilter@5b39f5e0, org.springframework.security.web.authentication.logout.LogoutFilter@7b5eaf22, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6b22ec7e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e2a6f8a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@585f45d4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5046baad, org.springframework.security.web.access.ExceptionTranslationFilter@5067dca8, org.springframework.security.web.access.intercept.AuthorizationFilter@f7500b1]）
+（INFO）（2024/11/20 14:03:27.533）（IP）（ID）（org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer）（LiveReload server is running on port 35729）
+（INFO）（2024/11/20 14:03:27.547）（IP）（ID）（org.apache.coyote.http11.Http11NioProtocol）（Starting ProtocolHandler ["http-nio-8080"]）
+（INFO）（2024/11/20 14:03:27.568）（IP）（ID）（org.springframework.boot.web.embedded.tomcat.TomcatWebServer）（Tomcat started on port 8080 (http) with context path ''）
+（INFO）（2024/11/20 14:03:27.574）（IP）（ID）（com.digitalojt.web.DroneInventorySystemApplication）（Started DroneInventorySystemApplication in 3.56 seconds (process running for 4.208)）
+（INFO）（2024/11/20 14:04:09.118）（IP）（ID）（org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]）（Initializing Spring DispatcherServlet 'dispatcherServlet'）
+（INFO）（2024/11/20 14:04:09.118）（IP）（ID）（org.springframework.web.servlet.DispatcherServlet）（Initializing Servlet 'dispatcherServlet'）
+（INFO）（2024/11/20 14:04:09.118）（IP）（ID）（org.springframework.web.servlet.DispatcherServlet）（Completed initialization in 0 ms）
+（INFO）（2024/11/20 14:04:17.411）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）
+（INFO）（2024/11/20 14:04:36.752）（IP）（ID）（org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin）（Application shutdown requested.）
+（INFO）（2024/11/20 14:04:36.755）（IP）（ID）（org.apache.coyote.http11.Http11NioProtocol）（Stopping ProtocolHandler ["http-nio-8080"]）
+（INFO）（2024/11/20 14:04:36.963）（IP）（ID）（org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean）（Closing JPA EntityManagerFactory for persistence unit 'default'）
+（INFO）（2024/11/20 14:04:36.966）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Shutdown initiated...）
+（INFO）（2024/11/20 14:04:36.977）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Shutdown completed.）

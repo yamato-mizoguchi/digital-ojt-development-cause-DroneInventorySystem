@@ -1,5 +1,7 @@
 package com.digitalojt.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,7 +23,8 @@ public class StockListController extends AbstractController {
 	 */
 	@GetMapping(UrlConsts.STOCK_LIST)
 	public String index() {
-
+		Logger logger = LoggerFactory.getLogger("在庫一覧画面へのアクセス");
+        logger.info("");
 		return "admin/stockList/index";
 	}
 }

@@ -33,7 +33,7 @@ public class LoginController {
 	 */
 	@GetMapping(UrlConsts.LOGIN)
 	public String index(Model model, LoginForm form) {
-
+		
 		return "admin/login/index";
 	}
 

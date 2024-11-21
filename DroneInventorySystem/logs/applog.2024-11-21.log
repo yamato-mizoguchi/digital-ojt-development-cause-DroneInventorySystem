@@ -1,0 +1,35 @@
+（INFO）（2024/11/21 11:35:07.173）（IP）（ID）（com.digitalojt.web.DroneInventorySystemApplication）（Starting DroneInventorySystemApplication using Java 17.0.12 with PID 26812 (C:\Documents\digital-ojt-development-cause-DroneInventorySystem\DroneInventorySystem\target\classes started by z2240246 in C:\Documents\digital-ojt-development-cause-DroneInventorySystem\DroneInventorySystem)）
+（INFO）（2024/11/21 11:35:07.175）（IP）（ID）（com.digitalojt.web.DroneInventorySystemApplication）（No active profile set, falling back to 1 default profile: "default"）
+（INFO）（2024/11/21 11:35:07.216）（IP）（ID）（org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor）（Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable）
+（INFO）（2024/11/21 11:35:07.216）（IP）（ID）（org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor）（For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'）
+（INFO）（2024/11/21 11:35:08.053）（IP）（ID）（org.springframework.data.repository.config.RepositoryConfigurationDelegate）（Bootstrapping Spring Data JPA repositories in DEFAULT mode.）
+（INFO）（2024/11/21 11:35:08.136）（IP）（ID）（org.springframework.data.repository.config.RepositoryConfigurationDelegate）（Finished Spring Data repository scanning in 71 ms. Found 3 JPA repository interfaces.）
+（INFO）（2024/11/21 11:35:08.741）（IP）（ID）（org.springframework.boot.web.embedded.tomcat.TomcatWebServer）（Tomcat initialized with port 8080 (http)）
+（INFO）（2024/11/21 11:35:08.752）（IP）（ID）（org.apache.coyote.http11.Http11NioProtocol）（Initializing ProtocolHandler ["http-nio-8080"]）
+（INFO）（2024/11/21 11:35:08.755）（IP）（ID）（org.apache.catalina.core.StandardService）（Starting service [Tomcat]）
+（INFO）（2024/11/21 11:35:08.755）（IP）（ID）（org.apache.catalina.core.StandardEngine）（Starting Servlet engine: [Apache Tomcat/10.1.28]）
+（INFO）（2024/11/21 11:35:08.810）（IP）（ID）（org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]）（Initializing Spring embedded WebApplicationContext）
+（INFO）（2024/11/21 11:35:08.810）（IP）（ID）（org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext）（Root WebApplicationContext: initialization completed in 1593 ms）
+（INFO）（2024/11/21 11:35:08.842）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Starting...）
+（INFO）（2024/11/21 11:35:09.271）（IP）（ID）（com.zaxxer.hikari.pool.HikariPool）（HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7209e736）
+（INFO）（2024/11/21 11:35:09.274）（IP）（ID）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Start completed.）
+（INFO）（2024/11/21 11:35:09.283）（IP）（ID）（org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration）（H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/stock_mng'）
+（INFO）（2024/11/21 11:35:09.860）（IP）（ID）（org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo）（No LoadTimeWeaver setup: ignoring JPA class transformer）
+（INFO）（2024/11/21 11:35:10.886）（IP）（ID）（org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean）（Initialized JPA EntityManagerFactory for persistence unit 'default'）
+（INFO）（2024/11/21 11:35:11.162）（IP）（ID）（org.springframework.data.jpa.repository.query.QueryEnhancerFactory）（Hibernate is in classpath; If applicable, HQL parser will be used.）
+（WARN）（2024/11/21 11:35:11.502）（IP）（ID）（org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration）（spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning）
+（INFO）（2024/11/21 11:35:11.767）（IP）（ID）（org.springframework.security.web.DefaultSecurityFilterChain）（Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6ded9c30, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7e0f7276, org.springframework.security.web.context.SecurityContextHolderFilter@76498821, org.springframework.security.web.header.HeaderWriterFilter@3a9f00f0, org.springframework.security.web.csrf.CsrfFilter@4114edad, org.springframework.security.web.authentication.logout.LogoutFilter@8400e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@25a6caf9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2992adb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b0ea23, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7bec8638, org.springframework.security.web.access.ExceptionTranslationFilter@6dd6d9f, org.springframework.security.web.access.intercept.AuthorizationFilter@58284123]）
+（INFO）（2024/11/21 11:35:12.018）（IP）（ID）（org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer）（LiveReload server is running on port 35729）
+（INFO）（2024/11/21 11:35:12.033）（IP）（ID）（org.apache.coyote.http11.Http11NioProtocol）（Starting ProtocolHandler ["http-nio-8080"]）
+（INFO）（2024/11/21 11:35:12.064）（IP）（ID）（org.springframework.boot.web.embedded.tomcat.TomcatWebServer）（Tomcat started on port 8080 (http) with context path ''）
+（INFO）（2024/11/21 11:35:12.072）（IP）（ID）（com.digitalojt.web.DroneInventorySystemApplication）（Started DroneInventorySystemApplication in 5.148 seconds (process running for 5.778)）
+（INFO）（2024/11/21 11:35:16.788）（IP）（ID）（org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]）（Initializing Spring DispatcherServlet 'dispatcherServlet'）
+（INFO）（2024/11/21 11:35:16.789）（IP）（ID）（org.springframework.web.servlet.DispatcherServlet）（Initializing Servlet 'dispatcherServlet'）
+（INFO）（2024/11/21 11:35:16.791）（IP）（ID）（org.springframework.web.servlet.DispatcherServlet）（Completed initialization in 2 ms）
+（WARN）（2024/11/21 11:35:17.658）（IP）（ID）（org.apache.catalina.util.SessionIdGeneratorBase）（Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [109] milliseconds.）
+（INFO）（2024/11/21 11:35:21.203）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）
+（INFO）（2024/11/21 11:35:30.757）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）
+（INFO）（2024/11/21 11:39:02.637）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）
+（INFO）（2024/11/21 11:39:09.764）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）
+（INFO）（2024/11/21 11:39:12.466）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）
+（INFO）（2024/11/21 11:39:12.957）（IP）（ID）（com.digitalojt.web.controller.StockListController）（在庫一覧画面へのアクセス）

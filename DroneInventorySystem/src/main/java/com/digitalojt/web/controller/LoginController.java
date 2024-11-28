@@ -46,7 +46,12 @@ public class LoginController {
 	@GetMapping(value = UrlConsts.LOGIN, params = "error")
 	public String error(Model model, LoginForm form) {
 		
-		Exception errorInfo = (Exception)session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);						
+		Exception errorInfo = (Exception)session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);	
+		
+		// エラー画面へ直接アクセス、ブラウザバック等された場合、ログイン画面に遷移
+		if(errorInfo == null) {
+			return "admin/login/index";
+		}
 		model.addAttribute("errorMsg", errorInfo.getMessage());
 		return "admin/login/index";	
 	}

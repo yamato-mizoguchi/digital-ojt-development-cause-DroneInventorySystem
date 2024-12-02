@@ -1,9 +1,12 @@
 package com.digitalojt.web.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,4 +78,10 @@ public class CenterInfo {
 	 * 登録日
 	 */
 	private Timestamp createDate;
+	
+	/**
+	 * 在庫情報との一対多のリレーション
+	 */
+	@OneToMany(mappedBy = "centerInfo")
+    private List<StockInfo> stockInfo;
 }

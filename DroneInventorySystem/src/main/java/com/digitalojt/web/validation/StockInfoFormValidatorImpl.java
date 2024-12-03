@@ -28,9 +28,7 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 
 		// すべてのフィールドが空かをチェック
 		if (allFieldsEmpty) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE)
-					.addConstraintViolation();
+			setErrorMessage(context, ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE);
 			return false;
 		}
 
@@ -47,9 +45,7 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 			// Integerの範囲を超えていないかチェック
 			if (amount.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) > 0
 					|| amount.compareTo(BigInteger.valueOf(Integer.MIN_VALUE)) < 0) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.AMOUNT_LENGTH_ERROR_MESSAGE)
-						.addConstraintViolation();
+				setErrorMessage(context, ErrorMessage.AMOUNT_LENGTH_ERROR_MESSAGE);
 				return false;
 			}
 			// 範囲内の数値であれば許可
@@ -57,11 +53,15 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 			return true;
 
 		} catch (NumberFormatException e) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(ErrorMessage.AMOUNT_INVALID_INPUT_ERROR_MESSAGE)
-					.addConstraintViolation();
-
+			setErrorMessage(context, ErrorMessage.AMOUNT_INVALID_INPUT_ERROR_MESSAGE);
 			return false; // 数値でない場合は無効
 		}
+	}
+	
+	// エラーメッセージをセットするメソッド
+	public void setErrorMessage(ConstraintValidatorContext context, String errorMessage) {
+		context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate(errorMessage)
+				.addConstraintViolation();
 	}
 }

@@ -16,10 +16,19 @@ public class UrlConsts {
 
 	// 在庫一覧画面
 	public static final String STOCK_LIST = "/admin/stockList";
+	
+	// 在庫一覧画面HTML
+	public static final String STOCK_LIST_INDEX =  "admin/stockList/index";
 
 	// 在庫一覧画面 検索
 	public static final String STOCK_LIST_SEARCH = "/admin/stockList/search";
-
+	
+	// AJAXリクエストで分類毎の名称
+	public static final String STOCK_LIST_PULLDOWN_NAMES_BY_CATEGORYID = "/admin/stockList/getStockNamesByCategoryId" ;
+	
+	// AJAXリクエストで全名称
+	public static final String STOCK_LIST_PULLDOWN_ALL_NAMES = "/admin/stockList/getAllNames";
+	
 	// 在庫センター情報画面
 	public static final String  CENTER_INFO = "/admin/centerInfo";
 

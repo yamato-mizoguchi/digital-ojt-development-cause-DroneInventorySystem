@@ -40,7 +40,7 @@
 
 					<label for="amount" class="mr-2">個数</label>
 					<input id="amount" name="amount" class="form-control mr-2" th:value="${inputtedValue.amount}"
-						type="text">
+						type="number" placeholder="9桁以内で入力">
 
 					<select id="amountCondition" name="amountCondition" class="form-control mr-2">
 						<option value=0 th:selected="${inputtedValue.amountCondition == 0}" th:text="以上"></option>

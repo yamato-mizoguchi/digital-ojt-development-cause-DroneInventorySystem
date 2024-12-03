@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -18,17 +17,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class LogSettingFilter implements Filter {
 
-    String CLIENT = "client";
-//    AdminInfo adminInfo = new AdminInfo();
+	// IPアドレスを受け渡す文字列
+    private static String CLIENT = "client";
+    // 管理者IDを受け渡す文字列
+    private static String ADMINID = "adminId";
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
+    /**
+     * 
+     * @return 管理者IDの取得
+     */
     public String getCurrentAdminId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName(); // ユーザー名（ID）を取得
+        return authentication.getName(); // 管理者名（ID）を取得
     }
     
     /**
@@ -44,23 +44,12 @@ public class LogSettingFilter implements Filter {
 
         try {
         	String adminId = getCurrentAdminId();
-            MDC.put("adminId", adminId);
+            MDC.put(ADMINID, adminId);
             MDC.put(CLIENT, servletRequest.getRemoteAddr());
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
-        	MDC.remove("adminId");
+        	MDC.remove(ADMINID);
             MDC.remove(CLIENT);
         }
-//        try {
-//            MDC.put("userId", adminInfo.getAdminId()); // ユーザーIDをMDCに設定
-//            filterChain.doFilter(servletRequest, servletResponse);
-//        } finally {
-//            MDC.remove("userId"); // 処理後にMDCからユーザーIDを削除
-//        }
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

@@ -31,4 +31,10 @@ public class ErrorMessage {
 	
 	// 文字超過に関するエラーメッセージ
 	public static final String CATEGORY_NAME_LENGTH_ERROR_MESSAGE = "categoryName.length.wrongInput";
+	
+	// 不正な入力値を使用した検索に関するエラーメッセージ
+	public static final String AMOUNT_INVALID_INPUT_ERROR_MESSAGE = "stockInfo.amount.wrongInput";
+	
+	// 不正な入力値を使用した検索に関するエラーメッセージ
+	public static final String AMOUNT_LENGTH_ERROR_MESSAGE = "stockInfo.amount.length.wrongInput";
 }

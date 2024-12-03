@@ -58,8 +58,11 @@ public class StockListController extends AbstractController {
 		// 在庫情報画面に表示するデータを格納するリストの作成
 		List<StockInfo> stockInfoList = stockInfoService.getStockInfoData();
 
-		// 画面用にセット
-		setView(model, stockInfoList, form);
+		// 名称プルダウンに表示する在庫情報を取得（遷移時にstockInfoListと異なる）
+		List<StockInfo> stockInfoListPullDown = stockInfoService.getStockNamesByCategoryId(form.getCategoryId());
+		
+		// 画面表示用にセット
+		setView(model, stockInfoList,stockInfoListPullDown, form);
 
 		logger.info(LogMessage.GET + LogMessage.ACCESS_LOG + LogMessage.SUCCESS);
 		return UrlConsts.STOCK_LIST_INDEX;
@@ -82,11 +85,8 @@ public class StockListController extends AbstractController {
 			// 名称プルダウンに表示する在庫情報を取得（遷移時にstockInfoListと異なる）
 			List<StockInfo> stockInfoListPullDown = stockInfoService.getStockNamesByCategoryId(form.getCategoryId());
 
-			// プルダウンに表示する在庫情報をセット
-			model.addAttribute("stockInfoListPullDown", stockInfoListPullDown);
-
 			// 画面用にセット
-			setView(model, stockInfoList, form);
+			setView(model, stockInfoList, stockInfoListPullDown, form);
 
 			// エラーメッセージをプロパティファイルから取得
 			String errorMsg = MessageManager.getMessage(messageSource,
@@ -104,11 +104,8 @@ public class StockListController extends AbstractController {
 		// 名称プルダウンに表示する在庫情報を取得（遷移時にstockInfoListと異なる）
 		List<StockInfo> stockInfoListPullDown = stockInfoService.getStockNamesByCategoryId(form.getCategoryId());
 
-		// プルダウンに表示する在庫情報をセット
-		model.addAttribute("stockInfoListPullDown", stockInfoListPullDown);
-
 		// 画面表示用にセット
-		setView(model, stockInfoList, form);
+		setView(model, stockInfoList, stockInfoListPullDown, form);
 
 		return UrlConsts.STOCK_LIST_INDEX;
 	}
@@ -139,13 +136,16 @@ public class StockListController extends AbstractController {
 	}
 
 	// 遷移後の画面に表示する内容をセットするメソッド
-	public void setView(Model model, List<StockInfo> stockInfoList, StockInfoForm form) {
+	public void setView(Model model, List<StockInfo> stockInfoList, List<StockInfo> stockInfoListPullDown,  StockInfoForm form) {
 
 		// 画面表示用に商品情報リストをセット
 		model.addAttribute("stockInfoList", stockInfoList);
 
 		// プルダウンに表示する分類をセット
 		model.addAttribute("categories", categoryInfoService.getCategoryInfoData());
+		
+		// プルダウンに表示する名称をセット
+		model.addAttribute("stockInfoListPullDown", stockInfoListPullDown);
 
 		// プルダウンに表示する前フォームでの入力情報（名称以外）をセット
 		model.addAttribute("inputtedValue", form);

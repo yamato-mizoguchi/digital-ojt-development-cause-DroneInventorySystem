@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.digitalojt.web.DTO.StockInfoDTO;
 import com.digitalojt.web.consts.LogMessage;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.StockInfo;
 import com.digitalojt.web.form.StockInfoForm;
-import com.digitalojt.web.service.CategoryInfoService;
 import com.digitalojt.web.service.StockInfoService;
 import com.digitalojt.web.util.MessageManager;
 
@@ -38,74 +38,52 @@ public class StockListController extends AbstractController {
 	/** 在庫情報 サービス*/
 	private final StockInfoService stockInfoService;
 
-	/** 分類情報 サービス*/
-	private final CategoryInfoService categoryInfoService;
-
 	/** メッセージソース */
 	private final MessageSource messageSource;
 
 	/** ログのカテゴリ　画面名の取得*/
 	private static Logger logger = LoggerFactory.getLogger(LogMessage.STOCK_LIST);
 
+	
 	/**
 	 * 初期表示
 	 * @param form
 	 * @return String(path)
 	 */
 	@GetMapping(UrlConsts.STOCK_LIST)
-	public String index(Model model, StockInfoForm form, BindingResult bindingResult) {
+	public String index(Model model, StockInfoForm form, BindingResult bindingResult) {		
 
-		// 在庫情報画面に表示するデータを格納するリストの作成
-		List<StockInfo> stockInfoList = stockInfoService.getStockInfoData();
-
-		// 名称プルダウンに表示する在庫情報を取得（遷移時にstockInfoListと異なる）
-		List<StockInfo> stockInfoListPullDown = stockInfoService.getStockNamesByCategoryId(form.getCategoryId());
-		
 		// 画面表示用にセット
-		setView(model, stockInfoList,stockInfoListPullDown, form);
+		setView(model, stockInfoService.setStockInfoDTO(form), form);
 
 		logger.info(LogMessage.GET + LogMessage.ACCESS_LOG + LogMessage.SUCCESS);
 		return UrlConsts.STOCK_LIST_INDEX;
 	}
 
 	/**
-	 * 初期表示
+	 * 検索結果
 	 * @param form
 	 * @return String(path)
 	 */
 	@PostMapping(UrlConsts.STOCK_LIST_SEARCH)
 	public String search(Model model, @Valid StockInfoForm form, BindingResult bindingResult) {
-
+		
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
-			// 在庫情報画面に表示するデータを取得
-			List<StockInfo> stockInfoList = stockInfoService.getStockInfoData();
+			// 画面表示用にセット
+			setView(model, stockInfoService.setStockInfoDTO(form), form);
 
-			// 名称プルダウンに表示する在庫情報を取得（遷移時にstockInfoListと異なる）
-			List<StockInfo> stockInfoListPullDown = stockInfoService.getStockNamesByCategoryId(form.getCategoryId());
-
-			// 画面用にセット
-			setView(model, stockInfoList, stockInfoListPullDown, form);
-
-			// エラーメッセージをプロパティファイルから取得
-			String errorMsg = MessageManager.getMessage(messageSource,
-					bindingResult.getGlobalError().getDefaultMessage());
+			// エラーメッセージをプロパティファイルから取得してセット
+			String errorMsg = MessageManager.getMessage(messageSource, bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
 
 			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + "：" + errorMsg);
 			return UrlConsts.STOCK_LIST_INDEX;
 		}
 
-		// 在庫情報画面に表示するデータを取得
-		List<StockInfo> stockInfoList = stockInfoService.getStockInfoData(form.getCategoryId(), form.getName(),
-				((form.getAmount() == null) ? null : Integer.parseInt(form.getAmount())), form.getAmountCondition()); // 条件演算子はException対策
-
-		// 名称プルダウンに表示する在庫情報を取得（遷移時にstockInfoListと異なる）
-		List<StockInfo> stockInfoListPullDown = stockInfoService.getStockNamesByCategoryId(form.getCategoryId());
-
 		// 画面表示用にセット
-		setView(model, stockInfoList, stockInfoListPullDown, form);
+		setView(model, stockInfoService.setStockInfoDTO_notValidError(form), form);
 
 		return UrlConsts.STOCK_LIST_INDEX;
 	}
@@ -116,8 +94,7 @@ public class StockListController extends AbstractController {
 	public List<String> getStockNamesByCategoryId(Integer categoryId) {
 
 		// カテゴリに対応する名称を取得
-		List<StockInfo> stockInfoList = stockInfoService.getStockNamesByCategoryId(categoryId);
-		return stockInfoList.stream()
+		return stockInfoService.getStockNamesByCategoryId(categoryId).stream()
 				.map(StockInfo::getName) // 在庫情報から商品名を取り出す
 				.collect(Collectors.toList());
 	}
@@ -128,26 +105,25 @@ public class StockListController extends AbstractController {
 	public List<String> getAllNames() {
 
 		// 全取得
-		List<StockInfo> stockInfoList = stockInfoService.getStockInfoData();
-
-		return stockInfoList.stream()
+		return stockInfoService.getStockInfoData().stream()
 				.map(StockInfo::getName) // 在庫情報から商品名を取り出す
 				.collect(Collectors.toList());
 	}
 
+	
 	// 遷移後の画面に表示する内容をセットするメソッド
-	public void setView(Model model, List<StockInfo> stockInfoList, List<StockInfo> stockInfoListPullDown,  StockInfoForm form) {
+	public void setView(Model model, StockInfoDTO stockInfoDTO, StockInfoForm form) {
 
 		// 画面表示用に商品情報リストをセット
-		model.addAttribute("stockInfoList", stockInfoList);
+		model.addAttribute("stockInfoList", stockInfoDTO.getStockInfoList());
 
 		// プルダウンに表示する分類をセット
-		model.addAttribute("categories", categoryInfoService.getCategoryInfoData());
-		
-		// プルダウンに表示する名称をセット
-		model.addAttribute("stockInfoListPullDown", stockInfoListPullDown);
+		model.addAttribute("categories", stockInfoDTO.getCategoryInfoList());
 
-		// プルダウンに表示する前フォームでの入力情報（名称以外）をセット
+		// プルダウンに表示する名称をセット
+		model.addAttribute("stockInfoListPullDown", stockInfoDTO.getStockInfoListPullDown());
+
+		// プルダウンに表示する前フォームでの入力情報をセット
 		model.addAttribute("inputtedValue", form);
 
 	}

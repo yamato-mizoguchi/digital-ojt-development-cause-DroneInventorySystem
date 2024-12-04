@@ -38,6 +38,7 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 			form.setAmount(null);
 			return true; // 空文字はnullとして許可
 		}
+		
 		try {
 			// 文字列をBigIntegerに変換
 			BigInteger amount = new BigInteger(form.getAmount());
@@ -48,8 +49,8 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 				setErrorMessage(context, ErrorMessage.AMOUNT_LENGTH_ERROR_MESSAGE);
 				return false;
 			}
+			
 			// 範囲内の数値であれば許可
-			Integer.parseInt(form.getAmount()); // Integerに変換して範囲内か確認
 			return true;
 
 		} catch (NumberFormatException e) {
@@ -57,7 +58,7 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 			return false; // 数値でない場合は無効
 		}
 	}
-	
+
 	// エラーメッセージをセットするメソッド
 	public void setErrorMessage(ConstraintValidatorContext context, String errorMessage) {
 		context.disableDefaultConstraintViolation();

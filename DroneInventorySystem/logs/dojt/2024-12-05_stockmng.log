@@ -1,0 +1,52 @@
+（INFO）（2024/12/05 19:58:48.131）（IP:）（管理者ID:）（com.digitalojt.web.DroneInventorySystemApplication）（Starting DroneInventorySystemApplication using Java 17.0.12 with PID 1208 (C:\Documents\digital-ojt-development-cause-DroneInventorySystem\DroneInventorySystem\target\classes started by z2240246 in C:\Documents\digital-ojt-development-cause-DroneInventorySystem\DroneInventorySystem)）
+（INFO）（2024/12/05 19:58:48.134）（IP:）（管理者ID:）（com.digitalojt.web.DroneInventorySystemApplication）（No active profile set, falling back to 1 default profile: "default"）
+（INFO）（2024/12/05 19:58:48.188）（IP:）（管理者ID:）（org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor）（Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable）
+（INFO）（2024/12/05 19:58:48.188）（IP:）（管理者ID:）（org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor）（For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'）
+（INFO）（2024/12/05 19:58:48.939）（IP:）（管理者ID:）（org.springframework.data.repository.config.RepositoryConfigurationDelegate）（Bootstrapping Spring Data JPA repositories in DEFAULT mode.）
+（INFO）（2024/12/05 19:58:49.023）（IP:）（管理者ID:）（org.springframework.data.repository.config.RepositoryConfigurationDelegate）（Finished Spring Data repository scanning in 74 ms. Found 4 JPA repository interfaces.）
+（INFO）（2024/12/05 19:58:49.629）（IP:）（管理者ID:）（org.springframework.boot.web.embedded.tomcat.TomcatWebServer）（Tomcat initialized with port 8080 (http)）
+（INFO）（2024/12/05 19:58:49.644）（IP:）（管理者ID:）（org.apache.catalina.core.StandardService）（Starting service [Tomcat]）
+（INFO）（2024/12/05 19:58:49.644）（IP:）（管理者ID:）（org.apache.catalina.core.StandardEngine）（Starting Servlet engine: [Apache Tomcat/10.1.28]）
+（INFO）（2024/12/05 19:58:49.715）（IP:）（管理者ID:）（org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]）（Initializing Spring embedded WebApplicationContext）
+（INFO）（2024/12/05 19:58:49.717）（IP:）（管理者ID:）（org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext）（Root WebApplicationContext: initialization completed in 1526 ms）
+（INFO）（2024/12/05 19:58:49.745）（IP:）（管理者ID:）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Starting...）
+（INFO）（2024/12/05 19:58:50.131）（IP:）（管理者ID:）（com.zaxxer.hikari.pool.HikariPool）（HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d445df2）
+（INFO）（2024/12/05 19:58:50.135）（IP:）（管理者ID:）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Start completed.）
+（INFO）（2024/12/05 19:58:50.145）（IP:）（管理者ID:）（org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration）（H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/stock_mng'）
+（INFO）（2024/12/05 19:58:50.854）（IP:）（管理者ID:）（org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo）（No LoadTimeWeaver setup: ignoring JPA class transformer）
+（INFO）（2024/12/05 19:58:52.157）（IP:）（管理者ID:）（org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean）（Initialized JPA EntityManagerFactory for persistence unit 'default'）
+（INFO）（2024/12/05 19:58:52.431）（IP:）（管理者ID:）（org.springframework.data.jpa.repository.query.QueryEnhancerFactory）（Hibernate is in classpath; If applicable, HQL parser will be used.）
+（WARN）（2024/12/05 19:58:53.063）（IP:）（管理者ID:）（org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration）（spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning）
+（INFO）（2024/12/05 19:58:53.352）（IP:）（管理者ID:）（org.springframework.security.web.DefaultSecurityFilterChain）（Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e2285e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5ee628, org.springframework.security.web.context.SecurityContextHolderFilter@1d12c607, org.springframework.security.web.header.HeaderWriterFilter@457375df, org.springframework.security.web.csrf.CsrfFilter@35824fda, org.springframework.security.web.authentication.logout.LogoutFilter@73f9b4f3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2464bb39, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69e44257, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@77f6489a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@77f0247e, org.springframework.security.web.access.ExceptionTranslationFilter@41dbf434, org.springframework.security.web.access.intercept.AuthorizationFilter@9472730]）
+（INFO）（2024/12/05 19:58:53.622）（IP:）（管理者ID:）（org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer）（LiveReload server is running on port 35729）
+（INFO）（2024/12/05 19:58:53.682）（IP:）（管理者ID:）（org.springframework.boot.web.embedded.tomcat.TomcatWebServer）（Tomcat started on port 8080 (http) with context path ''）
+（INFO）（2024/12/05 19:58:53.697）（IP:）（管理者ID:）（com.digitalojt.web.DroneInventorySystemApplication）（Started DroneInventorySystemApplication in 5.915 seconds (process running for 6.837)）
+（INFO）（2024/12/05 19:59:29.706）（IP:）（管理者ID:）（org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]）（Initializing Spring DispatcherServlet 'dispatcherServlet'）
+（INFO）（2024/12/05 19:59:29.722）（IP:）（管理者ID:）（org.springframework.web.servlet.DispatcherServlet）（Initializing Servlet 'dispatcherServlet'）
+（INFO）（2024/12/05 19:59:29.722）（IP:）（管理者ID:）（org.springframework.web.servlet.DispatcherServlet）（Completed initialization in 0 ms）
+（WARN）（2024/12/05 19:59:30.739）（IP:0:0:0:0:0:0:0:1）（管理者ID:anonymousUser）（org.apache.catalina.util.SessionIdGeneratorBase）（Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [120] milliseconds.）
+（INFO）（2024/12/05 19:59:35.861）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（GET-アクセスログ-成功：）
+（INFO）（2024/12/05 19:59:38.955）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（GET-アクセスログ-成功：）
+（INFO）（2024/12/05 19:59:58.922）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 19:59:58.969）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果5件）
+（INFO）（2024/12/05 20:00:48.459）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 20:00:48.474）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果5件）
+（INFO）（2024/12/05 20:00:51.614）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 20:00:51.619）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果0件）
+（INFO）（2024/12/05 20:01:30.914）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 20:01:30.932）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果5件）
+（INFO）（2024/12/05 20:01:36.362）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-失敗：：※個数は9桁以内で入力してください）
+（INFO）（2024/12/05 20:05:36.008）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 20:05:36.020）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果5件）
+（INFO）（2024/12/05 20:05:40.600）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 20:05:40.614）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果5件）
+（INFO）（2024/12/05 20:05:44.683）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 20:05:44.695）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果5件）
+（WARN）（2024/12/05 22:43:34.439）（IP:）（管理者ID:）（com.zaxxer.hikari.pool.HikariPool）（HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h27m43s976ms800µs200ns).）
+（INFO）（2024/12/05 23:03:17.616）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索開始）
+（INFO）（2024/12/05 23:03:17.627）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-成功：検索結果0件）
+（INFO）（2024/12/05 23:03:20.935）（IP:0:0:0:0:0:0:0:1）（管理者ID:dotlife）（在庫一覧画面）（POST-アプリケーションログ-失敗：：※個数は9桁以内で入力してください）
+（INFO）（2024/12/05 23:22:22.439）（IP:）（管理者ID:）（org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin）（Application shutdown requested.）
+（INFO）（2024/12/05 23:22:24.542）（IP:）（管理者ID:）（org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean）（Closing JPA EntityManagerFactory for persistence unit 'default'）
+（INFO）（2024/12/05 23:22:24.667）（IP:）（管理者ID:）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Shutdown initiated...）
+（INFO）（2024/12/05 23:22:24.762）（IP:）（管理者ID:）（com.zaxxer.hikari.HikariDataSource）（HikariPool-1 - Shutdown completed.）

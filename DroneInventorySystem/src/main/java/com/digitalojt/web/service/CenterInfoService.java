@@ -1,12 +1,17 @@
 package com.digitalojt.web.service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
 
+import com.digitalojt.web.DTO.CenterInfoDTO;
+import com.digitalojt.web.consts.LogMessage;
+import com.digitalojt.web.consts.Region;
 import com.digitalojt.web.entity.CenterInfo;
+import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.repository.CenterInfoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +29,9 @@ public class CenterInfoService {
 	/** センター情報テーブル リポジトリー */
 	private final CenterInfoRepository repository;
 
+	/** ログのカテゴリ　画面名の取得*/
+	private static Logger logger = LoggerFactory.getLogger(LogMessage.CENTER_INFO);
+	
 	/**
 	 * 在庫センター情報を全件検索で取得
 	 * 
@@ -32,7 +40,7 @@ public class CenterInfoService {
 	public List<CenterInfo> getCenterInfoData() {
 
 		// 在庫センター情報作成
-		List<CenterInfo> centerInfoList = createCenterInfo();
+		List<CenterInfo> centerInfoList = repository.findAllOperationalStatus0DeleteFlag0();
 
 		return centerInfoList;
 	}
@@ -46,99 +54,48 @@ public class CenterInfoService {
 	 * @param storageCapacityTo
 	 * @return 
 	 */
-	public List<CenterInfo> getCenterInfoData(String centerName, String region) {
+	public List<CenterInfo> getCenterInfoData(String centerName, String region, Integer storageCapacityFrom, Integer storageCapacityTo) {
 
-		// 在庫センター情報作成
-		List<CenterInfo> centerInfoList = createCenterInfo();
-
-		// 検索処理
-		centerInfoList = searchCenterInfoData(centerInfoList, centerName, region);
-
-		return centerInfoList;
-	}
-
-	/**
-	 * 検索処理
-	 * 
-	 * @param centerInfoList
-	 * @param centerName
-	 * @param region 
-	 * @return
-	 */
-	private List<CenterInfo> searchCenterInfoData(List<CenterInfo> centerInfoList, String centerName, String region) {
-
-		List<CenterInfo> hitCenterInfoList = new ArrayList<>();
+		// センター検索処理開始のログ
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
 		
-		// 引数の文字列と合致する要素のみリストに追加
-		centerInfoList.forEach(item -> {
-			if (centerName.equals(item.getCenterName()) && region.equals(item.getAddress())
-					|| StringUtils.isEmpty(centerName) && item.getAddress().contains(region)
-					|| StringUtils.isEmpty(region) && item.getCenterName().contains(centerName)) {
-				hitCenterInfoList.add(item);
-			}
-		});
-
-		return hitCenterInfoList;
-	}
-
-	/**
-	 * 在庫センター情報作成
-	 * 
-	 * @return
-	 */
-	private List<CenterInfo> createCenterInfo() {
-
-		List<CenterInfo> centerInfoList = new ArrayList<>();
-
-		// 1コード目作成
-		CenterInfo centerInfo = new CenterInfo();
-		centerInfo.setCenterName("東京物流センター");
-		centerInfo.setAddress("東京都港区芝公園4-2-8");
-		centerInfo.setPhoneNumber("03-1234-5678");
-		centerInfo.setManagerName("田中 太郎");
-		centerInfoList.add(centerInfo);
-
-		// 2コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("大阪物流センター");
-		centerInfo.setAddress("大阪府大阪市北区梅田1-1-3");
-		centerInfo.setPhoneNumber("06-8765-4321");
-		centerInfo.setManagerName("鈴木 一郎");
-		centerInfoList.add(centerInfo);
-
-		// 3コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("名古屋物流センター");
-		centerInfo.setAddress("愛知県名古屋市中村区名駅3-2-1");
-		centerInfo.setPhoneNumber("052-123-4567");
-		centerInfo.setManagerName("佐藤 花子");
-		centerInfoList.add(centerInfo);
-
-		// 4コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("仙台物流センター");
-		centerInfo.setAddress("宮城県仙台市青葉区一番町4-4-1");
-		centerInfo.setPhoneNumber("022-234-5678");
-		centerInfo.setManagerName("中田 太郎");
-		centerInfoList.add(centerInfo);
-
-		// 5コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("福岡物流センター");
-		centerInfo.setAddress("福岡県福岡市博多区博多駅前2-1-1");
-		centerInfo.setPhoneNumber("092-234-5678");
-		centerInfo.setManagerName("近藤 一郎");
-		centerInfoList.add(centerInfo);
-
-		// 6コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("北海道物流センター");
-		centerInfo.setAddress("北海道札幌市中央区大通西3-6");
-		centerInfo.setPhoneNumber("011-234-5678");
-		centerInfo.setManagerName("小池 花子");
-		centerInfoList.add(centerInfo);
-
+		List<CenterInfo> centerInfoList = repository.findByCenterNameAndRegionAndStorageCapacity(centerName, region, storageCapacityFrom, storageCapacityTo);
+		
+		// センター検索処理正常終了のログ
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS
+				+ LogMessage.SearchResult(centerInfoList));
+		
 		return centerInfoList;
 	}
-
+	
+	/**
+	 * 未検索時とバリデーションエラー時、画面表示用にデータを取得
+	 * 
+	 * @param form
+	 * @return 在庫センター情報画面DTO
+	 */
+	public CenterInfoDTO setCenterInfoDTO() {
+		CenterInfoDTO centerInfoDTO = new CenterInfoDTO();
+		
+		centerInfoDTO.setCenterInfoList(getCenterInfoData());
+		centerInfoDTO.setRegions(Arrays.asList(Region.values()));
+		
+		return centerInfoDTO;
+	}
+	
+	/**
+	 * バリデーション突破時、画面表示用にデータを取得
+	 * 
+	 * @param form
+	 * @return 在庫センター情報画面DTO
+	 */
+	public CenterInfoDTO setCenterInfoDTO(CenterInfoForm form) {
+		CenterInfoDTO centerInfoDTO = new CenterInfoDTO();
+		
+		centerInfoDTO.setCenterInfoList(getCenterInfoData(form.getCenterName(), form.getRegion(),
+				((form.getStorageCapacityFrom() == null) ? null : Integer.parseInt(form.getStorageCapacityFrom())), (form.getStorageCapacityTo() == null) ? null : Integer.parseInt(form.getStorageCapacityTo())));
+		centerInfoDTO.setRegions(Arrays.asList(Region.values()));
+		
+		return centerInfoDTO;
+	}
 }

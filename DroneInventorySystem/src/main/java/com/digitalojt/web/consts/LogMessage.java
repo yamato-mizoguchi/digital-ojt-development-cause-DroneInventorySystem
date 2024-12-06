@@ -13,6 +13,8 @@ public class LogMessage {
 	
 	public static final String STOCK_LIST = "在庫一覧画面";
 	
+	public static final String CENTER_INFO = "在庫センター情報画面";
+	
 	public static final String GET = "GET-";
 	
 	public static final String POST = "POST-";

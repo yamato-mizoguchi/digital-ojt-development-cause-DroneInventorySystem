@@ -1,14 +1,15 @@
 package com.digitalojt.web.validation;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
 import org.thymeleaf.util.StringUtils;
 
 import com.digitalojt.web.consts.ErrorMessage;
 import com.digitalojt.web.consts.SearchParams;
 import com.digitalojt.web.form.CenterInfoForm;
+import com.digitalojt.web.util.CategoryParmCheckUtil;
 import com.digitalojt.web.util.ParmCheckUtil;
-
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * 在庫センター情報画面のバリデーションチェック 実装クラス
@@ -24,13 +25,13 @@ public class CenterInfoFormValidatorImpl implements ConstraintValidator<CenterIn
 	public boolean isValid(CenterInfoForm form, ConstraintValidatorContext context) {
 
 		boolean allFieldsEmpty = StringUtils.isEmpty(form.getCenterName()) &&
-				StringUtils.isEmpty(form.getRegion());
+				StringUtils.isEmpty(form.getRegion()) &&
+				StringUtils.isEmpty(form.getStorageCapacityFrom()) &&
+				StringUtils.isEmpty(form.getStorageCapacityTo());
 
 		// すべてのフィールドが空かをチェック
 		if (allFieldsEmpty) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE)
-					.addConstraintViolation();
+			setErrorMessage(context, ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE);
 			return false;
 		}
 
@@ -38,18 +39,14 @@ public class CenterInfoFormValidatorImpl implements ConstraintValidator<CenterIn
 		if (form.getCenterName() != null) {
 
 			// 不正文字列チェック
-			if (ParmCheckUtil.isParameterInvalid(form.getCenterName())) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-						.addConstraintViolation();
+			if (CategoryParmCheckUtil.isParameterInvalid(form.getCenterName())) {
+				setErrorMessage(context, ErrorMessage.INVALID_INPUT_ERROR_MESSAGE);
 				return false;
 			}
 
 			// 文字数チェック
 			if (form.getCenterName().length() > SearchParams.MAX_LENGTH) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.CENTER_NAME_LENGTH_ERROR_MESSAGE)
-						.addConstraintViolation();
+				setErrorMessage(context, ErrorMessage.CENTER_NAME_LENGTH_ERROR_MESSAGE);
 				return false;
 			}
 		}
@@ -59,14 +56,53 @@ public class CenterInfoFormValidatorImpl implements ConstraintValidator<CenterIn
 
 			// 不正文字列チェック
 			if (ParmCheckUtil.isParameterInvalid(form.getRegion())) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-						.addConstraintViolation();
+				setErrorMessage(context, ErrorMessage.INVALID_INPUT_ERROR_MESSAGE);
 				return false;
 			}
 		}
 
-		// その他のバリデーションに問題なければtrueを返す
+		if(StringUtils.isEmpty(form.getStorageCapacityFrom())) {
+			form.setStorageCapacityFrom(null);
+		}
+		if(StringUtils.isEmpty(form.getStorageCapacityTo())) {
+			form.setStorageCapacityTo(null);
+		}
+		if (StringUtils.isEmpty(form.getStorageCapacityFrom())&&StringUtils.isEmpty(form.getStorageCapacityTo())) {
+			return true;
+		}
+		
+		try {
+			if (form.getStorageCapacityFrom() != null) {
+				// 数値チェック (数値でないまたはint型の範囲外の場合にNumberFormatException)
+				Integer.parseInt(form.getStorageCapacityFrom());
+			}
+			if (form.getStorageCapacityTo() != null) {
+				Integer.parseInt(form.getStorageCapacityTo());
+			}
+		} catch (NumberFormatException e) {
+			setErrorMessage(context, ErrorMessage.CENTER_CAPACITY_INVALID_INPUT);
+			return false;
+		}
+
+		// capacity論理チェック
+		if (form.getStorageCapacityFrom() != null && form.getStorageCapacityTo() != null) {
+
+			// 両方に入力がある場合
+			if (Integer.parseInt(form.getStorageCapacityFrom()) > Integer.parseInt(form.getStorageCapacityTo())) {
+				// fromがtoより大きい場合
+				setErrorMessage(context, ErrorMessage.CENTER_CAPACITY_INVALID_LOGIC_INPUT);
+				
+				return false;
+			}
+
+		}
+
 		return true;
+	}
+	
+	public void setErrorMessage(ConstraintValidatorContext context, String errorMessage) {
+		context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate(errorMessage)
+				.addConstraintViolation();
 	}
 }

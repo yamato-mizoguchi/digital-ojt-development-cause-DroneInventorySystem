@@ -12,11 +12,12 @@ import lombok.Data;
  */
 @Data
 @CenterInfoFormValidator
-public class CenterInfoForm {
+public class CenterInfoForm{
 
 	/**
 	 * センター名
 	 */
+	
 	private String centerName;
 
 	/**
@@ -27,10 +28,10 @@ public class CenterInfoForm {
 	/**
 	 * 容量(From)
 	 */
-	private Integer storageCapacityFrom;
+	private String storageCapacityFrom;
 
 	/**
 	 * 容量(To)
 	 */
-	private Integer storageCapacityTo;
+	private String storageCapacityTo;
 }

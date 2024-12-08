@@ -37,4 +37,7 @@ public class ErrorMessage {
 	
 	// 不正な入力値を使用した検索に関するエラーメッセージ
 	public static final String AMOUNT_LENGTH_ERROR_MESSAGE = "stockInfo.amount.length.wrongInput";
+	
+	// DB処理時のエラーメッセージ
+	public static final String STOCK_DB_EXCEPTION = "stockInfo.unexpected.exception";
 }

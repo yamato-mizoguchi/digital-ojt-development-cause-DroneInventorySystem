@@ -12,6 +12,7 @@ import com.digitalojt.web.consts.LogMessage;
 import com.digitalojt.web.consts.Region;
 import com.digitalojt.web.entity.CenterInfo;
 import com.digitalojt.web.form.CenterInfoForm;
+import com.digitalojt.web.form.CenterInfoRegisterForm;
 import com.digitalojt.web.repository.CenterInfoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -97,5 +98,31 @@ public class CenterInfoService {
 		centerInfoDTO.setRegions(Arrays.asList(Region.values()));
 		
 		return centerInfoDTO;
+	}
+	
+	/**
+	 * 在庫センター情報新規登録
+	 * 
+	 * @param form
+	 */
+	public void registerCenterInfo(CenterInfoRegisterForm form) {
+		
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.REGISTER_START);
+		
+		CenterInfo centerInfo = new CenterInfo();
+        centerInfo.setCenterName(form.getCenterName());
+        centerInfo.setPostCode(form.getPostCode());
+        centerInfo.setAddress(form.getAddress());
+        centerInfo.setPhoneNumber(form.getPhoneNumber());
+        centerInfo.setManagerName(form.getManagerName());
+        centerInfo.setOperationalStatus(form.getOperationalStatus());
+        centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
+        centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
+        centerInfo.setNotes(form.getNotes());
+        centerInfo.setDeleteFlag("0");
+
+        repository.save(centerInfo); // 保存
+        
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.REGISTER_END);
 	}
 }

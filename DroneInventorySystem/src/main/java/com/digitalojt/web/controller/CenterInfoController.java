@@ -15,6 +15,7 @@ import com.digitalojt.web.DTO.CenterInfoDTO;
 import com.digitalojt.web.consts.LogMessage;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.form.CenterInfoForm;
+import com.digitalojt.web.form.CenterInfoRegisterForm;
 import com.digitalojt.web.service.CenterInfoService;
 import com.digitalojt.web.util.MessageManager;
 
@@ -85,5 +86,40 @@ public class CenterInfoController {
 		model.addAttribute("centerInfoList", centerInfoDTO.getCenterInfoList());
 		model.addAttribute("regions", centerInfoDTO.getRegions());
 		model.addAttribute("centerInfoForm", form);
+	}
+	
+	/**
+	 * 初期表示
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(UrlConsts.CENTER_INFO_REGISTER)
+	public String register(Model model, CenterInfoRegisterForm form, BindingResult bindingResult) {
+		model.addAttribute("CenterInfoRegisterForm", form);
+		return "admin/centerInfo/register";
+	}
+	
+	/**
+	 * 検索結果表示
+	 * 
+	 * @param model
+	 * @param form
+	 * @return
+	 */
+	@PostMapping(UrlConsts.CENTER_INFO_REGISTER)
+	public String registered(Model model, @Valid CenterInfoRegisterForm form, BindingResult bindingResult) {
+		// Valid項目チェック
+		if (bindingResult.hasErrors()) {
+
+	        model.addAttribute("CenterInfoRegisterForm", form);
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + LogMessage.VALIDATION_ERROR);
+	        
+			return "admin/centerInfo/register";
+		}
+		
+		centerInfoService.registerCenterInfo(form);
+		
+		return "redirect:" + UrlConsts.CENTER_INFO;
 	}
 }

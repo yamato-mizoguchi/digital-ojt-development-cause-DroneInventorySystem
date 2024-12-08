@@ -29,9 +29,13 @@ public class LogMessage {
 	
 	public static final String FAILURE = "-失敗：";
 	
-	public static final String SEARCH_START = "検索開始";
+	public static final String SEARCH_START = "検索処理開始";
 	
-	public static final String SEARCH_END = "検索結果";
+	public static final String REGISTER_START = "登録処理開始";
+	
+	public static final String REGISTER_END = "登録処理完了";
+	
+	public static final String VALIDATION_ERROR = "バリデーションエラー";
 	
 	public static String SearchResult(List<?> a) {
 		return "検索結果" + a.size() + "件";

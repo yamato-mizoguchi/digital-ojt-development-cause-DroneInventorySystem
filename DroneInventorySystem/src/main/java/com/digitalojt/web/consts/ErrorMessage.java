@@ -42,4 +42,23 @@ public class ErrorMessage {
 	public static final String CENTER_CAPACITY_INVALID_INPUT = "centerCapacity.invalid.input";
 
 	public static final String CENTER_CAPACITY_INVALID_LOGIC_INPUT ="centerCapacity.invalid.logic.input";
+	
+	public static final String CENTER_NAME = "centerName";
+	public static final String POST_CODE = "postCode";
+	public static final String ADDRESS = "address";
+	public static final String PHONE_NUMBER = "phoneNumber";
+	public static final String MANAGER_NAME = "managerName";
+	public static final String MAX_STORAGE_CAPACITY = "maxStorageCapacity";
+	public static final String CURRENT_STORAGE_CAPACITY = "currentStorageCapacity";
+	public static final String NOTES = "notes";
+	
+	public static final String FIELD_EMPTY = ".field.empty";
+	public static final String INVALID_INPUT = ".invalid.input";
+	public static final String LENGTH_WRONG_INPUT = ".length.wrongInput";
+	public static final String MIN_INPUT = ".min.input";
+	public static final String MAX_INPUT = ".max.input";
+	public static final String INTEGER_INPUT = ".integer.input";
+	public static final String INVALID_FORMAT = ".invalid.format";
+	public static final String INVALID_LOGIC_INPUT = ".invalid.logic.input";
+	
 }

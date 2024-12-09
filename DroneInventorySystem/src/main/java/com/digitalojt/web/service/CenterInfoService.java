@@ -14,6 +14,7 @@ import com.digitalojt.web.consts.LogMessage;
 import com.digitalojt.web.consts.Region;
 import com.digitalojt.web.entity.CenterInfo;
 import com.digitalojt.web.exception.CenterInfoException;
+import com.digitalojt.web.form.CenterInfoEditForm;
 import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.form.CenterInfoRegisterForm;
 import com.digitalojt.web.repository.CenterInfoRepository;
@@ -42,13 +43,27 @@ public class CenterInfoService {
 	 * @return
 	 */
 	public List<CenterInfo> getCenterInfoData() {
-		
-		try {
-		// 在庫センター情報作成
-		List<CenterInfo> centerInfoList = repository.findAllOperationalStatus0DeleteFlag0();
 
-		return centerInfoList;
-		}catch(Exception e) {
+		try {
+			// 在庫センター情報作成
+			List<CenterInfo> centerInfoList = repository.findAllOperationalStatus0DeleteFlag0();
+
+			return centerInfoList;
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+	}
+
+	/**
+	 * 在庫センター情報を全件検索で取得
+	 * 
+	 * @return
+	 */
+	public CenterInfo getCenterInfoData(Integer centerId) {
+
+		try {
+			return repository.findById(centerId).orElseThrow();
+		} catch (Exception e) {
 			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
 		}
 	}
@@ -64,20 +79,20 @@ public class CenterInfoService {
 	 */
 	public List<CenterInfo> getCenterInfoData(String centerName, String region, Integer storageCapacityFrom,
 			Integer storageCapacityTo) {
-		
+
 		try {
-		// センター検索処理開始のログ
-		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
+			// センター検索処理開始のログ
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
 
-		List<CenterInfo> centerInfoList = repository.findByCenterNameAndRegionAndStorageCapacity(centerName, region,
-				storageCapacityFrom, storageCapacityTo);
+			List<CenterInfo> centerInfoList = repository.findByCenterNameAndRegionAndStorageCapacity(centerName, region,
+					storageCapacityFrom, storageCapacityTo);
 
-		// センター検索処理正常終了のログ
-		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS
-				+ LogMessage.SearchResult(centerInfoList));
-		
-		return centerInfoList;
-		}catch(Exception e) {
+			// センター検索処理正常終了のログ
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS
+					+ LogMessage.SearchResult(centerInfoList));
+
+			return centerInfoList;
+		} catch (Exception e) {
 			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
 		}
 	}
@@ -142,5 +157,35 @@ public class CenterInfoService {
 			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
 		}
 		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.REGISTER_END);
+	}
+	
+	/**
+	 * 在庫センター情報更新
+	 * 
+	 * @param form
+	 * @param CenterInfo
+	 */
+	@Transactional
+	public void editCenterInfo(CenterInfoEditForm form, CenterInfo centerInfo) {
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.EDIT_START);
+
+		try {
+			centerInfo.setCenterName(form.getCenterName());
+			centerInfo.setPostCode(form.getPostCode());
+			centerInfo.setAddress(form.getAddress());
+			centerInfo.setPhoneNumber(form.getPhoneNumber());
+			centerInfo.setManagerName(form.getManagerName());
+			centerInfo.setOperationalStatus(form.getOperationalStatus());
+			centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
+			centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
+			centerInfo.setNotes(form.getNotes());
+			centerInfo.setDeleteFlag("0");
+
+			repository.save(centerInfo); // 保存
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.EDIT_END);
 	}
 }

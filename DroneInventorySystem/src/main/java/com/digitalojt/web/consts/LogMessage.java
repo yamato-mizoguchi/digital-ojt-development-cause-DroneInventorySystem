@@ -35,6 +35,10 @@ public class LogMessage {
 	
 	public static final String REGISTER_END = "登録処理完了";
 	
+	public static final String EDIT_START = "更新処理開始";
+	
+	public static final String EDIT_END = "更新処理完了";
+	
 	public static final String VALIDATION_ERROR = "バリデーションエラー";
 	
 	public static String SearchResult(List<?> a) {

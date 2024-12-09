@@ -9,12 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.digitalojt.web.DTO.CenterInfoDTO;
 import com.digitalojt.web.consts.LogMessage;
 import com.digitalojt.web.consts.SuccessMessage;
 import com.digitalojt.web.consts.UrlConsts;
+import com.digitalojt.web.entity.CenterInfo;
+import com.digitalojt.web.form.CenterInfoEditForm;
 import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.form.CenterInfoRegisterForm;
 import com.digitalojt.web.service.CenterInfoService;
@@ -124,6 +128,46 @@ public class CenterInfoController {
 		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
 		
 		model.addAttribute("successMsg", SuccessMessage.REGISTER_SUCCESS);
+		
+		return "admin/centerInfo/index";
+	}
+	
+	/**
+	 * 初期表示
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(UrlConsts.CENTER_INFO_EDIT + "/{centerId}")
+	public String edit(@PathVariable("centerId") Integer id, Model model, CenterInfoEditForm form, BindingResult bindingResut) {
+		model.addAttribute("CenterInfoEditForm", centerInfoService.getCenterInfoData(id));
+		return "admin/centerInfo/edit";
+	}
+	
+	/**
+	 * 検索結果表示
+	 * 
+	 * @param model
+	 * @param form
+	 * @return
+	 */
+	@PostMapping(UrlConsts.CENTER_INFO_EDIT + "/{centerId}")
+	public String edited(@PathVariable("centerId") Integer id, CenterInfoForm centerInfoForm, Model model, @Valid @ModelAttribute("CenterInfoEditForm") CenterInfoEditForm centerInfoEditForm, BindingResult bindingResult) {
+		
+		CenterInfo centerInfo = centerInfoService.getCenterInfoData(id);
+		// Valid項目チェック
+		if (bindingResult.hasErrors()) {
+
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + LogMessage.VALIDATION_ERROR);
+	        
+			return "admin/centerInfo/edit";
+		}
+		
+		centerInfoService.editCenterInfo(centerInfoEditForm, centerInfo);
+		
+		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
+        
+		model.addAttribute("successMsg", SuccessMessage.EDIT_SUCCESS);
 		
 		return "admin/centerInfo/index";
 	}

@@ -38,6 +38,9 @@ public class UrlConsts {
 	// 在庫センター情報画面 登録
 	public static final String CENTER_INFO_REGISTER = "/admin/centerInfo/register";
 	
+	// 在庫センター情報画面 更新
+	public static final String CENTER_INFO_EDIT = "/admin/centerInfo/edit";
+	
 	// 分類情報画面
 	public static final String CATEGORY_INFO = "/admin/categoryInfo";
 	

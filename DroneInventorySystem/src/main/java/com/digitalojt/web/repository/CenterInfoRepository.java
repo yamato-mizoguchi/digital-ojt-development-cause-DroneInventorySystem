@@ -1,6 +1,7 @@
 package com.digitalojt.web.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +22,8 @@ public interface CenterInfoRepository extends JpaRepository<CenterInfo, Integer>
 			"(s.deleteFlag = '0') AND " + 
 			"(operationalStatus = 0)")
 	   List<CenterInfo> findAllOperationalStatus0DeleteFlag0();
+	
+	   Optional<CenterInfo> findById(Integer centerId);
 	
 	/**
 	 * 引数に合致する在庫センター情報を取得
@@ -43,16 +46,4 @@ public interface CenterInfoRepository extends JpaRepository<CenterInfo, Integer>
 			String region,
 			Integer storageCapacityFrom,
 			Integer storageCapacityTo);
-//@Query(value = "SELECT * FROM center_info s WHERE " +
-//		"(:centerName = '' OR s.center_name LIKE %:centerName%) AND " +
-//		"(:region = '' OR s.address LIKE %:region%) AND " +
-//		"(:storageCapacityFrom IS NULL OR CAST(s.current_storage_capacity AS UNSIGNED) >= :storageCapacityFrom) AND " +
-//		"(:storageCapacityTo IS NULL OR CAST(s.current_storage_capacity AS UNSIGNED) <= :storageCapacityTo) AND " +
-//		"(s.operational_status = 0) AND " +
-//		"(s.delete_flag = '0')", nativeQuery = true)
-//List<CenterInfo> findByCenterNameAndRegionAndStorageCapacityNative(
-//		String centerName,
-//		String region,
-//		Integer storageCapacityFrom,
-//		Integer storageCapacityTo);
 }

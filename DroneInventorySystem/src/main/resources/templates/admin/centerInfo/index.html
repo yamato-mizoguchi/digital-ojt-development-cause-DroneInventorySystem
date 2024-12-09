@@ -64,6 +64,7 @@
 								<th>管理者名</th>
 								<th>最大保存容量(㎥)</th>
 								<th>現在保存容量(㎥)</th>
+								<th>編集</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -74,6 +75,10 @@
 								<td> [[${item.managerName}]] </td>
 								<td> [[${item.maxStorageCapacity}]] </td>
 								<td> [[${item.currentStorageCapacity}]] </td>
+								<td>
+								    <!-- Edit button -->
+								    <a th:href="@{/admin/centerInfo/edit/{id}(id=${item.centerId})}" class="btn btn-warning btn-sm">編集</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>

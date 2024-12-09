@@ -4,12 +4,12 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import com.digitalojt.web.consts.ErrorMessage;
-import com.digitalojt.web.form.CenterInfoRegisterForm;
+import com.digitalojt.web.form.CenterInfoEditForm;
 
-public class CompareCapacityValidatorImpl implements ConstraintValidator<CompareCapacityValidator, CenterInfoRegisterForm> {
+public class CompareCapacityEditValidatorImpl implements ConstraintValidator<CompareCapacityEditValidator, CenterInfoEditForm> {
 
     @Override
-    public boolean isValid(CenterInfoRegisterForm form, ConstraintValidatorContext context) {
+    public boolean isValid(CenterInfoEditForm form, ConstraintValidatorContext context) {
     	
         if (form.getMaxStorageCapacity() != null && form.getCurrentStorageCapacity() != null) {
             // 現在容量が最大容量より大きい場合はエラー

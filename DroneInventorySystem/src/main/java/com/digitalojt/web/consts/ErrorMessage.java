@@ -37,8 +37,7 @@ public class ErrorMessage {
 	
 	// 不正な入力値を使用した検索に関するエラーメッセージ
 	public static final String AMOUNT_LENGTH_ERROR_MESSAGE = "stockInfo.amount.length.wrongInput";
-	
-	// 
+
 	public static final String CENTER_CAPACITY_INVALID_INPUT = "centerCapacity.invalid.input";
 
 	public static final String CENTER_CAPACITY_INVALID_LOGIC_INPUT ="centerCapacity.invalid.logic.input";
@@ -63,4 +62,6 @@ public class ErrorMessage {
 	
 	// DB処理時のエラーメッセージ
 	public static final String STOCK_DB_EXCEPTION = "stockInfo.unexpected.exception";
+	// DB処理時のエラーメッセージ
+	public static final String CENTER_DB_EXCEPTION = "centerInfo.unexpected.exception";
 }

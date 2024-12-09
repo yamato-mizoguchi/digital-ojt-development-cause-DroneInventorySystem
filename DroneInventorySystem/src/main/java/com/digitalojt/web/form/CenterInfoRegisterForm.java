@@ -28,7 +28,7 @@ public class CenterInfoRegisterForm{
 	 */
 	@NotEmpty(message = "{"+ ErrorMessage.CENTER_NAME + ErrorMessage.FIELD_EMPTY + "}")
     @Size(max = 20, message = "{" + ErrorMessage.CENTER_NAME + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^\\s{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String centerName;
 	
 	/**
@@ -43,7 +43,7 @@ public class CenterInfoRegisterForm{
 	 */
     @NotEmpty(message = "{"+ ErrorMessage.ADDRESS + ErrorMessage.FIELD_EMPTY + "}")
     @Size(max = 20, message = "{" + ErrorMessage.ADDRESS + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^\\s{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String address;
 	
 	/**
@@ -51,7 +51,7 @@ public class CenterInfoRegisterForm{
 	 */
     @NotEmpty(message = "{"+ ErrorMessage.PHONE_NUMBER + ErrorMessage.FIELD_EMPTY + "}")
     @Size(max = 20, message = "{" + ErrorMessage.PHONE_NUMBER + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^\\s{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String phoneNumber;
 	
 	/**

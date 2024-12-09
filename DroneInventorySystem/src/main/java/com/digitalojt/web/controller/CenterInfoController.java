@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.digitalojt.web.DTO.CenterInfoDTO;
 import com.digitalojt.web.consts.LogMessage;
+import com.digitalojt.web.consts.SuccessMessage;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.form.CenterInfoRegisterForm;
@@ -73,7 +74,7 @@ public class CenterInfoController {
 			
 			setView(model, centerInfoService.setCenterInfoDTO(), form);
 			
-			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + "：" + errorMsg);
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + errorMsg);
 			return "admin/centerInfo/index";
 		}
 		
@@ -108,7 +109,7 @@ public class CenterInfoController {
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTER)
-	public String registered(Model model, @Valid CenterInfoRegisterForm form, BindingResult bindingResult) {
+	public String registered(Model model, @Valid CenterInfoRegisterForm form, BindingResult bindingResult, CenterInfoForm centerInfoForm) {
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -120,6 +121,10 @@ public class CenterInfoController {
 		
 		centerInfoService.registerCenterInfo(form);
 		
-		return "redirect:" + UrlConsts.CENTER_INFO;
+		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
+		
+		model.addAttribute("successMsg", SuccessMessage.REGISTER_SUCCESS);
+		
+		return "admin/centerInfo/index";
 	}
 }

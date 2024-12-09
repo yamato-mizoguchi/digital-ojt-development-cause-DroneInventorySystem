@@ -14,9 +14,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // MyCustomException がスローされた場合の処理
+    // StockInfoException がスローされた場合の処理
     @ExceptionHandler(StockInfoException.class)
-    public ResponseEntity<String> handleMyCustomException(StockInfoException ex) {
+    public ResponseEntity<String> handleStockInfoException(StockInfoException ex) {
+        // エラーメッセージをJSON形式で返す
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    // CenterInfoException がスローされた場合の処理
+    @ExceptionHandler(CenterInfoException.class)
+    public ResponseEntity<String> handleCenterInfoException(CenterInfoException ex) {
         // エラーメッセージをJSON形式で返す
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.digitalojt.web.DTO.StockInfoDTO;
+import com.digitalojt.web.consts.ErrorMessage;
 import com.digitalojt.web.consts.LogMessage;
 import com.digitalojt.web.entity.StockInfo;
+import com.digitalojt.web.exception.StockInfoException;
 import com.digitalojt.web.form.StockInfoForm;
 import com.digitalojt.web.repository.StockInfoRepository;
 
@@ -26,14 +28,13 @@ public class StockInfoService {
 
 	/** 在庫情報　リポジトリ */
 	private final StockInfoRepository repository;
-	
+
 	/** 分類情報　サービス */
 	private final CategoryInfoService categoryInfoService;
 
 	/** ログのカテゴリ　画面名の取得*/
 	private static Logger logger = LoggerFactory.getLogger(LogMessage.STOCK_LIST);
 
-	
 	/**
 	 * 未削除在庫を全件検索で取得
 	 * 
@@ -41,10 +42,16 @@ public class StockInfoService {
 	 */
 	public List<StockInfo> getStockInfoData() {
 
-		// 在庫情報未削除検索
-		List<StockInfo> stockInfoList = repository.findAllDeleteFlagFalse();
-
-		return stockInfoList;
+		try {
+			// 在庫情報未削除検索
+			List<StockInfo> stockInfoList = repository.findAllDeleteFlagFalse();
+			return stockInfoList;
+			
+		} catch (Exception e) {
+			logger.error(LogMessage.POST + LogMessage.ERROR_LOG + LogMessage.FAILURE
+					+ ErrorMessage.STOCK_DB_EXCEPTION);
+			throw new StockInfoException(ErrorMessage.STOCK_DB_EXCEPTION);
+		}
 	}
 
 	/**
@@ -57,19 +64,25 @@ public class StockInfoService {
 	 * @return 検索結果
 	 */
 	public List<StockInfo> getStockInfoData(Integer categoryId, String name, Integer amount, Integer amountCondition) {
-		
-		// 在庫検索処理開始のログ
-		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
-		
-		// 在庫情報検索
-		List<StockInfo> stockInfoList = repository.findByCategoryIdAndNameAndAmount(categoryId, name, amount,
-				amountCondition);
-		
-		// 在庫検索処理正常終了のログ
-		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS
-				+ LogMessage.SearchResult(stockInfoList));
 
-		return stockInfoList;
+		try {
+			// 在庫検索処理開始のログ
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
+
+			// 在庫情報検索
+			List<StockInfo> stockInfoList = repository.findByCategoryIdAndNameAndAmount(categoryId, name, amount,
+					amountCondition);
+
+			// 在庫検索処理正常終了のログ
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS
+					+ LogMessage.SearchResult(stockInfoList));
+
+			return stockInfoList;
+		} catch (Exception e) {
+			logger.error(LogMessage.POST + LogMessage.ERROR_LOG + LogMessage.FAILURE
+					+ ErrorMessage.STOCK_DB_EXCEPTION);
+			throw new StockInfoException(ErrorMessage.STOCK_DB_EXCEPTION);
+		}
 	}
 
 	/**
@@ -80,8 +93,14 @@ public class StockInfoService {
 	 */
 	public List<StockInfo> getStockNamesByCategoryId(Integer categoryId) {
 		
+		try {
 		// 分類IDに基づいて名称のリストを取得
 		return repository.findByCategoryId(categoryId);
+		}catch(Exception e) {
+			logger.error(LogMessage.POST + LogMessage.ERROR_LOG + LogMessage.FAILURE
+					+ ErrorMessage.STOCK_DB_EXCEPTION);
+			throw new StockInfoException(ErrorMessage.STOCK_DB_EXCEPTION);
+		}
 	}
 
 	/**
@@ -104,7 +123,7 @@ public class StockInfoService {
 
 		return stockInfoDTO;
 	}
-	
+
 	/**
 	 * バリデーション突破時、画面表示用にデータを取得
 	 * 
@@ -113,7 +132,7 @@ public class StockInfoService {
 	 */
 	public StockInfoDTO setStockInfoDTO_notValidError(StockInfoForm form) {
 		StockInfoDTO stockInfoDTO = new StockInfoDTO();
-		
+
 		// 検索時、在庫情報画面に表示するデータを取得
 		stockInfoDTO.setStockInfoList(
 				getStockInfoData(form.getCategoryId(), form.getName(),

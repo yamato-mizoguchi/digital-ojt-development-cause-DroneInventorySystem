@@ -61,4 +61,6 @@ public class ErrorMessage {
 	public static final String INVALID_FORMAT = ".invalid.format";
 	public static final String INVALID_LOGIC_INPUT = ".invalid.logic.input";
 	
+	// DB処理時のエラーメッセージ
+	public static final String STOCK_DB_EXCEPTION = "stockInfo.unexpected.exception";
 }

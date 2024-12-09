@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.digitalojt.web.DTO.CenterInfoDTO;
 import com.digitalojt.web.consts.ErrorMessage;
@@ -118,6 +119,7 @@ public class CenterInfoService {
 	 * 
 	 * @param form
 	 */
+	@Transactional
 	public void registerCenterInfo(CenterInfoRegisterForm form) {
 
 		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.REGISTER_START);

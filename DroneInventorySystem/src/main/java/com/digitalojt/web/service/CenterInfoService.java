@@ -18,6 +18,7 @@ import com.digitalojt.web.form.CenterInfoEditForm;
 import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.form.CenterInfoRegisterForm;
 import com.digitalojt.web.repository.CenterInfoRepository;
+import com.digitalojt.web.repository.StockInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +33,10 @@ import lombok.RequiredArgsConstructor;
 public class CenterInfoService {
 
 	/** センター情報テーブル リポジトリー */
-	private final CenterInfoRepository repository;
+	private final CenterInfoRepository centerInfoRepository;
+	
+	/** 在庫情報テーブル リポジトリー */
+	private final StockInfoRepository stockInfoRepository;
 
 	/** ログのカテゴリ　画面名の取得*/
 	private static Logger logger = LoggerFactory.getLogger(LogMessage.CENTER_INFO);
@@ -46,7 +50,7 @@ public class CenterInfoService {
 
 		try {
 			// 在庫センター情報作成
-			List<CenterInfo> centerInfoList = repository.findAllOperationalStatus0DeleteFlag0();
+			List<CenterInfo> centerInfoList = centerInfoRepository.findAllOperationalStatus0DeleteFlag0();
 
 			return centerInfoList;
 		} catch (Exception e) {
@@ -62,7 +66,7 @@ public class CenterInfoService {
 	public CenterInfo getCenterInfoData(Integer centerId) {
 
 		try {
-			return repository.findById(centerId).orElseThrow();
+			return centerInfoRepository.findById(centerId).orElseThrow();
 		} catch (Exception e) {
 			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
 		}
@@ -84,7 +88,7 @@ public class CenterInfoService {
 			// センター検索処理開始のログ
 			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
 
-			List<CenterInfo> centerInfoList = repository.findByCenterNameAndRegionAndStorageCapacity(centerName, region,
+			List<CenterInfo> centerInfoList = centerInfoRepository.findByCenterNameAndRegionAndStorageCapacity(centerName, region,
 					storageCapacityFrom, storageCapacityTo);
 
 			// センター検索処理正常終了のログ
@@ -152,7 +156,7 @@ public class CenterInfoService {
 			centerInfo.setNotes(form.getNotes());
 			centerInfo.setDeleteFlag("0");
 
-			repository.save(centerInfo); // 保存
+			centerInfoRepository.save(centerInfo); // 保存
 		} catch (Exception e) {
 			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
 		}
@@ -182,10 +186,46 @@ public class CenterInfoService {
 			centerInfo.setNotes(form.getNotes());
 			centerInfo.setDeleteFlag("0");
 
-			repository.save(centerInfo); // 保存
+			centerInfoRepository.save(centerInfo); // 保存
 		} catch (Exception e) {
 			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
 		}
 		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.EDIT_END);
+	}
+	
+	/**
+	 * 在庫センター情報削除
+	 * 
+	 * @param centerId
+	 */
+	@Transactional
+	public void deleteCenterInfo(Integer centerId) {
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.DELETE_START);
+
+		try {
+		    CenterInfo centerInfo = getCenterInfoData(centerId);
+
+		    // 在庫情報が存在する場合、例外をスロー
+		    if (!stockInfoRepository.findByCenterId(centerId).isEmpty()) {
+		        throw new CenterInfoException(ErrorMessage.STOCK_INFO_USAGE);
+		    } else {
+		        centerInfo.setDeleteFlag("1"); // 削除フラグを設定
+		        centerInfoRepository.save(centerInfo); // 保存
+		    }
+
+		} catch (CenterInfoException e) {
+		    // STOCK_INFO_USAGEエラーの場合はそのまま再スロー
+		    if (ErrorMessage.STOCK_INFO_USAGE.equals(e.getMessage())) {
+		        throw e;  // 例外を再スローして@ExceptionHandlerで捕まえる
+		    } else {
+		        throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION); // その他の例外
+		    }
+		} catch (Exception e) {
+		    // その他の例外はCENTER_DB_EXCEPTIONをスロー
+		    throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.DELETE_END);
 	}
 }

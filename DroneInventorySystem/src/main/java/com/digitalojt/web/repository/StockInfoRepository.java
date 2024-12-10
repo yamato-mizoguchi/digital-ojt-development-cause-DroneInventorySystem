@@ -56,4 +56,15 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 			"(:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
 			"(s.deleteFlag = false)")
 		List<StockInfo> findByCategoryId(Integer categoryId);
+	
+	/**
+	 * 引数に合致する在庫情報を取得
+	 * 
+	 * @param centerId
+	 * @return paramで検索した結果
+	 */
+	@Query("SELECT s FROM StockInfo s WHERE" +
+			"(s.centerInfo.centerId = :centerId) AND " +
+			"(s.deleteFlag = false)")
+		List<StockInfo> findByCenterId(Integer centerId);
 }

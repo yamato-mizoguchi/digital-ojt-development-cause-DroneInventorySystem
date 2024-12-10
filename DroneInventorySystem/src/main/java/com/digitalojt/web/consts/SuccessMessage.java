@@ -11,4 +11,6 @@ public class SuccessMessage {
 	public static final String  REGISTER_SUCCESS = "新しい在庫センター情報を登録しました。";
 	
 	public static final String  EDIT_SUCCESS = "在庫センター情報を更新しました。";
+	
+	public static final String  DELETE_SUCCESS = "1件の在庫センター情報を削除しました。";
 }

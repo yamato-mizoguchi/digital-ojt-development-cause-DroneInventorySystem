@@ -39,6 +39,10 @@ public class LogMessage {
 	
 	public static final String EDIT_END = "更新処理完了";
 	
+	public static final String DELETE_START = "削除処理開始";
+	
+	public static final String DELETE_END = "削除処理完了";
+	
 	public static final String VALIDATION_ERROR = "バリデーションエラー";
 	
 	public static String SearchResult(List<?> a) {

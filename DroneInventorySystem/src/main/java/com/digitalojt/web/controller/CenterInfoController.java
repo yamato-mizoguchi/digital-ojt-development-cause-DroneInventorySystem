@@ -94,7 +94,7 @@ public class CenterInfoController {
 	}
 	
 	/**
-	 * 初期表示
+	 * 登録画面初期表示
 	 * 
 	 * @param model
 	 * @return
@@ -106,14 +106,14 @@ public class CenterInfoController {
 	}
 	
 	/**
-	 * 検索結果表示
+	 * 登録結果表示
 	 * 
 	 * @param model
 	 * @param form
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTER)
-	public String registered(Model model, @Valid CenterInfoRegisterForm form, BindingResult bindingResult, CenterInfoForm centerInfoForm) {
+	public String registered(Model model, @Valid CenterInfoRegisterForm form, BindingResult bindingResult) {
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -125,7 +125,9 @@ public class CenterInfoController {
 		
 		centerInfoService.registerCenterInfo(form);
 		
-		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
+//		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
+		model.addAttribute("centerInfoList", centerInfoService.getCenterInfoData());
+		model.addAttribute("centerInfoForm", new CenterInfoForm());
 		
 		model.addAttribute("successMsg", SuccessMessage.REGISTER_SUCCESS);
 		
@@ -133,7 +135,7 @@ public class CenterInfoController {
 	}
 	
 	/**
-	 * 初期表示
+	 * 更新画面初期表示
 	 * 
 	 * @param model
 	 * @return
@@ -145,7 +147,7 @@ public class CenterInfoController {
 	}
 	
 	/**
-	 * 検索結果表示
+	 * 更新結果表示
 	 * 
 	 * @param model
 	 * @param form
@@ -168,6 +170,37 @@ public class CenterInfoController {
 		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
         
 		model.addAttribute("successMsg", SuccessMessage.EDIT_SUCCESS);
+		
+		return "admin/centerInfo/index";
+	}
+	
+	/**
+	 * 削除画面初期表示
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(UrlConsts.CENTER_INFO_DELETE + "/{centerId}")
+	public String delete(@PathVariable("centerId") Integer id, Model model) {
+		model.addAttribute("CenterInfo", centerInfoService.getCenterInfoData(id));
+		return "admin/centerInfo/delete";
+	}
+	
+	/**
+	 * 削除結果表示
+	 * 
+	 * @param model
+	 * @param form
+	 * @return
+	 */
+	@PostMapping(UrlConsts.CENTER_INFO_DELETE + "/{centerId}")
+	public String deleted(@PathVariable("centerId") Integer id, CenterInfoForm centerInfoForm, Model model) {
+
+		centerInfoService.deleteCenterInfo(id);
+		
+		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
+        
+		model.addAttribute("successMsg", SuccessMessage.DELETE_SUCCESS);
 		
 		return "admin/centerInfo/index";
 	}

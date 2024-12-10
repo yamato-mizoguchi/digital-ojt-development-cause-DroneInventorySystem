@@ -64,4 +64,7 @@ public class ErrorMessage {
 	public static final String STOCK_DB_EXCEPTION = "stockInfo.unexpected.exception";
 	// DB処理時のエラーメッセージ
 	public static final String CENTER_DB_EXCEPTION = "centerInfo.unexpected.exception";
+	// 削除しようとしたセンター情報が使用中の場合のエラーメッセージ
+	public static final String STOCK_INFO_USAGE = "centerInfo.stockInfoUsage.exception";
+	
 }

@@ -109,7 +109,7 @@ public class CenterInfo {
 	
     @PreUpdate
     public void preUpdate() {
-        // 更新時に、updatedAtを現在の時刻に設定
+        // 更新時に、updateDateを現在の時刻に設定
         this.updateDate = new Timestamp(System.currentTimeMillis());
     }
 }

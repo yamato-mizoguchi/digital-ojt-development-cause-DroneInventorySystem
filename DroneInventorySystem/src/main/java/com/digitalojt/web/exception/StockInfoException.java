@@ -10,8 +10,4 @@ public class StockInfoException extends RuntimeException {
     public StockInfoException(String message) {
         super(message);
     }
-
-    public StockInfoException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

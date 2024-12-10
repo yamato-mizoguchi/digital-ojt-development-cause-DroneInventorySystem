@@ -33,7 +33,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Controller
 @RequiredArgsConstructor
-public class StockListController extends AbstractController {
+public class StockListController {
 
 	/** 在庫情報 サービス*/
 	private final StockInfoService stockInfoService;
@@ -78,7 +78,7 @@ public class StockListController extends AbstractController {
 			String errorMsg = MessageManager.getMessage(messageSource, bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
 
-			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + "：" + errorMsg);
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.FAILURE + errorMsg);
 			return UrlConsts.STOCK_LIST_INDEX;
 		}
 

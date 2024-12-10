@@ -48,8 +48,6 @@ public class StockInfoService {
 			return stockInfoList;
 			
 		} catch (Exception e) {
-			logger.error(LogMessage.POST + LogMessage.ERROR_LOG + LogMessage.FAILURE
-					+ ErrorMessage.STOCK_DB_EXCEPTION);
 			throw new StockInfoException(ErrorMessage.STOCK_DB_EXCEPTION);
 		}
 	}
@@ -79,8 +77,6 @@ public class StockInfoService {
 
 			return stockInfoList;
 		} catch (Exception e) {
-			logger.error(LogMessage.POST + LogMessage.ERROR_LOG + LogMessage.FAILURE
-					+ ErrorMessage.STOCK_DB_EXCEPTION);
 			throw new StockInfoException(ErrorMessage.STOCK_DB_EXCEPTION);
 		}
 	}
@@ -97,8 +93,6 @@ public class StockInfoService {
 		// 分類IDに基づいて名称のリストを取得
 		return repository.findByCategoryId(categoryId);
 		}catch(Exception e) {
-			logger.error(LogMessage.POST + LogMessage.ERROR_LOG + LogMessage.FAILURE
-					+ ErrorMessage.STOCK_DB_EXCEPTION);
 			throw new StockInfoException(ErrorMessage.STOCK_DB_EXCEPTION);
 		}
 	}

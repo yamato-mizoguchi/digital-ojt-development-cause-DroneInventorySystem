@@ -1,68 +1,86 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}"
->
-  <head>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+
+<head>
     <title>InvenTrack</title>
-  </head>
+</head>
 
-  <body>
-	<div class="card shadow mb-4">
+<body>
+    <div class="card shadow mb-4">
 
-		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">在庫センター情報</h6>
-		</div>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block; margin-right: 10px;">在庫センター情報
+            </h6>
+            <a th:href="@{/admin/centerInfo/register}" class="btn btn-primary btn-sm" style="display: inline-block; margin-left: 20px;">新規登録</a>
+        </div>
+        <div class="card-body">
 
-		<div class="card-body">
-			
-			<!-- 検索フォーム -->
-			<div class="search-container">
-				<form class="form-inline" method="post" th:action="@{'/admin/centerInfo/search'}" th:object="${CenterInfoForm}">
-					<label for="searchTerm" class="mr-2">検索条件</label>
-					
-					<label for="searchTerm" class="mr-2">センター名</label>
- 					<input type="text" id="searchTerm" name="centerName" class="form-control mr-2">
- 					
- 					<label for="searchTerm" class="mr-2">都道府県</label>
- 					<select id="searchTerm" name="region" class="form-control mr-2">
-						 <option value="">選択してください</option>
-						 <option th:each="region : ${regions}" 
-						 	th:value="${region.name}" 
-						 	th:text="${region.name}"></option>
-					</select>
-					
- 					<button type="submit" class="btn btn-primary">検索</button>
- 				</form>
- 				
- 				<!-- エラーメッセージの表示 -->
- 				<div th:if="${errorMsg != null}" class="text-danger">
-					 <p th:text="${errorMsg}"></p>
-				</div>
-			</div>
- 			
-			<!-- 在庫センター情報テーブル -->
-			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>センター名</th>
-							<th>住所</th>
-							<th>連絡先</th>
-							<th>管理者名</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="item : ${centerInfoList}">
-							<td> [[${item.centerName}]] </td>
-							<td> [[${item.address}]] </td>
-							<td> [[${item.phoneNumber}]] </td>
-							<td> [[${item.managerName}]] </td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-  </body>
+            <!-- 検索フォーム -->
+            <div class="search-container">
+                <form class="form-inline" method="post" th:action="@{'/admin/centerInfo/search'}" th:object="${centerInfoForm}">
+                    <label for="centerName" class="mr-2">センター名</label>
+                    <input type="text" id="centerName" name="centerName" class="form-control mr-2" th:field="*{centerName}">
+
+                    <label for="region" class="mr-2">都道府県</label>
+                    <select id="region" name="region" class="form-control mr-2" th:field="*{region}">
+                        <option value="">すべて</option>
+                        <option th:each="region : ${regions}" th:value="${region.name}" th:text="${region.name}" th:selected="${region.name == centerInfoForm?.region}"></option>
+                    </select>
+
+                    <label for="storageCapacityFrom" class="mr-2">容量</label>
+                    <input type="number" placeholder="9桁以内で入力" id="storageCapacityFrom" name="storageCapacityFrom" class="form-control mr-2" th:field="*{storageCapacityFrom}">
+                    ～ 
+                    <label for="storageCapacityTo" class="mr-2"></label>
+                    <input type="number" placeholder="9桁以内で入力" id="storageCapacityTo" name="storageCapacityTo" class="form-control mr-2" th:field="*{storageCapacityTo}">
+
+                    <!-- ボタンが横並びになるように調整 -->
+                    <button type="submit" class="btn btn-primary ml-2">検索</button>
+                </form>
+
+                <!-- エラーメッセージの表示 -->
+                <div th:if="${errorMsg != null}" class="text-danger">
+                    <p th:text="${errorMsg}"></p>
+                </div>
+
+                <div th:if="${successMsg != null}" class="text-danger">
+                    <p th:text="${successMsg}"></p>
+                </div>
+
+                <!-- 在庫センター情報テーブル -->
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>センター名</th>
+                                <th>住所</th>
+                                <th>連絡先</th>
+                                <th>管理者名</th>
+                                <th>最大保存容量(㎥)</th>
+                                <th>現在保存容量(㎥)</th>
+                                <th>編集</th>
+                                <th>削除</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${centerInfoList}">
+                                <td>[[${item.centerName}]]</td>
+                                <td>[[${item.address}]]</td>
+                                <td>[[${item.phoneNumber}]]</td>
+                                <td>[[${item.managerName}]]</td>
+                                <td>[[${item.maxStorageCapacity}]]</td>
+                                <td>[[${item.currentStorageCapacity}]]</td>
+                                <td>
+                                    <a th:href="@{/admin/centerInfo/edit/{id}(id=${item.centerId})}" class="btn btn-warning btn-sm">編集</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/centerInfo/delete/{id}(id=${item.centerId})}" class="btn btn-danger btn-sm">削除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</body>
+
 </html>

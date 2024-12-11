@@ -21,79 +21,80 @@ import lombok.Data;
  */
 @Data
 @CompareCapacityValidator
-public class CenterInfoRegisterForm{
-	
+public class CenterInfoRegisterForm {
+
 	/**
 	 * センター名
 	 */
-	@NotEmpty(message = "{"+ ErrorMessage.CENTER_NAME + ErrorMessage.FIELD_EMPTY + "}")
-    @Size(max = 20, message = "{" + ErrorMessage.CENTER_NAME + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@NotEmpty(message = "{" + ErrorMessage.CENTER_NAME + ErrorMessage.FIELD_EMPTY + "}")
+	@Size(max = 20, message = "{" + ErrorMessage.CENTER_NAME + ErrorMessage.LENGTH_WRONG_INPUT + "}")
+	@Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String centerName;
-	
+
 	/**
 	 * 郵便番号
 	 */
-    @NotEmpty(message = "{"+ ErrorMessage.POST_CODE + ErrorMessage.FIELD_EMPTY + "}")
-    @Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "{"+ ErrorMessage.POST_CODE + ErrorMessage.INVALID_FORMAT + "}")
+	@NotEmpty(message = "{" + ErrorMessage.POST_CODE + ErrorMessage.FIELD_EMPTY + "}")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "{" + ErrorMessage.POST_CODE + ErrorMessage.INVALID_FORMAT + "}")
 	private String postCode;
-	
+
 	/**
 	 * 住所
 	 */
-    @NotEmpty(message = "{"+ ErrorMessage.ADDRESS + ErrorMessage.FIELD_EMPTY + "}")
-    @Size(max = 20, message = "{" + ErrorMessage.ADDRESS + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@NotEmpty(message = "{" + ErrorMessage.ADDRESS + ErrorMessage.FIELD_EMPTY + "}")
+	@Size(max = 20, message = "{" + ErrorMessage.ADDRESS + ErrorMessage.LENGTH_WRONG_INPUT + "}")
+	@Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String address;
-	
+
 	/**
 	 * 電話番号
 	 */
-    @NotEmpty(message = "{"+ ErrorMessage.PHONE_NUMBER + ErrorMessage.FIELD_EMPTY + "}")
-    @Size(max = 20, message = "{" + ErrorMessage.PHONE_NUMBER + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@NotEmpty(message = "{" + ErrorMessage.PHONE_NUMBER + ErrorMessage.FIELD_EMPTY + "}")
+	@Size(max = 20, message = "{" + ErrorMessage.PHONE_NUMBER + ErrorMessage.LENGTH_WRONG_INPUT + "}")
+	@Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String phoneNumber;
-	
+
 	/**
 	 * 管理者名
 	 */
-    @NotEmpty(message = "{"+ ErrorMessage.MANAGER_NAME + ErrorMessage.FIELD_EMPTY + "}")
-    @Size(max = 20, message = "{" + ErrorMessage.MANAGER_NAME + ErrorMessage.LENGTH_WRONG_INPUT + "}")
-    @Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@NotEmpty(message = "{" + ErrorMessage.MANAGER_NAME + ErrorMessage.FIELD_EMPTY + "}")
+	@Size(max = 20, message = "{" + ErrorMessage.MANAGER_NAME + ErrorMessage.LENGTH_WRONG_INPUT + "}")
+	@Pattern(regexp = "^[^{}()=;&$?*]*$", message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private String managerName;
-	
+
 	/**
 	 * 未使用フラグ
 	 */
-    @NotNull(message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
-    @Min(value = 0, message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
-    @Max(value = 1, message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@NotNull(message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@Min(value = 0, message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
+	@Max(value = 1, message = "{" + ErrorMessage.INVALID_INPUT_ERROR_MESSAGE + "}")
 	private int operationalStatus;
-	
+
 	/**
 	 * 最大容量
 	 */
-    @NotNull(message = "{"+ ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.FIELD_EMPTY + "}")
-    @Min(value = 1, message = "{"+ ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.MIN_INPUT + "}")
-    @Max(value = Integer.MAX_VALUE, message = "{"+ ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.MAX_INPUT + "}")
-    @Digits(integer = 10, fraction = 0, message = "{"+ ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.INTEGER_INPUT + "}")
+	@NotNull(message = "{" + ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.FIELD_EMPTY + "}")
+	@Min(value = 1, message = "{" + ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.MIN_INPUT + "}")
+	@Max(value = Integer.MAX_VALUE, message = "{" + ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.MAX_INPUT + "}")
+	@Digits(integer = 10, fraction = 0, message = "{" + ErrorMessage.MAX_STORAGE_CAPACITY + ErrorMessage.INTEGER_INPUT
+			+ "}")
 	private Integer maxStorageCapacity;
-	
+
 	/**
 	 * 現在容量
 	 */
-    @NotNull(message = "{"+ ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.FIELD_EMPTY + "}")
-    @Min(value = 0, message = "{"+ ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.MIN_INPUT + "}")
-    @Max(value = Integer.MAX_VALUE, message = "{"+ ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.MAX_INPUT + "}")
-    @Digits(integer = 10, fraction = 0, message = "{"+ ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.INTEGER_INPUT + "}")
+	@NotNull(message = "{" + ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.FIELD_EMPTY + "}")
+	@Min(value = 0, message = "{" + ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.MIN_INPUT + "}")
+	@Max(value = Integer.MAX_VALUE, message = "{" + ErrorMessage.CURRENT_STORAGE_CAPACITY + ErrorMessage.MAX_INPUT
+			+ "}")
+	@Digits(integer = 10, fraction = 0, message = "{" + ErrorMessage.CURRENT_STORAGE_CAPACITY
+			+ ErrorMessage.INTEGER_INPUT + "}")
 	private Integer currentStorageCapacity;
-	
+
 	/**
 	 * 備考
 	 */
-    @Size(max = 255, message = "{"+ ErrorMessage.NOTES + ErrorMessage.MAX_INPUT + "}")
+	@Size(max = 255, message = "{" + ErrorMessage.NOTES + ErrorMessage.MAX_INPUT + "}")
 	private String notes;
-    
-    
 
 }

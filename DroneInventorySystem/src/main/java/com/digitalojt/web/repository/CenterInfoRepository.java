@@ -18,13 +18,28 @@ import com.digitalojt.web.entity.CenterInfo;
 @Repository
 public interface CenterInfoRepository extends JpaRepository<CenterInfo, Integer> {
 
-	@Query("SELECT s FROM CenterInfo s WHERE" + 
-			"(s.deleteFlag = '0') AND " + 
+	/**
+	 * 未削除稼動中全検索
+	 * 
+	 * @param 
+	 * @return paramで検索した結果
+	 */
+	@Query("SELECT s FROM CenterInfo s WHERE" +
+			"(s.deleteFlag = '0') AND " +
 			"(operationalStatus = 0)")
-	   List<CenterInfo> findAllOperationalStatus0DeleteFlag0();
-	
-	   Optional<CenterInfo> findById(Integer centerId);
-	
+	List<CenterInfo> findAllOperationalStatus0DeleteFlag0();
+
+	/**
+	 * 引数に合致する在庫センター情報を取得
+	 * 
+	 * @param centerId
+	 * @return paramで検索した結果
+	 */
+	@Query("SELECT s FROM CenterInfo s WHERE" +
+			"(s.deleteFlag = '0') AND" +
+			"(:centerId = s.centerId)")
+	Optional<CenterInfo> findById(Integer centerId);
+
 	/**
 	 * 引数に合致する在庫センター情報を取得
 	 * 

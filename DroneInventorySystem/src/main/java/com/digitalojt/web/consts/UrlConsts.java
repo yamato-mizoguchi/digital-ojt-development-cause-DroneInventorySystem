@@ -35,6 +35,15 @@ public class UrlConsts {
 	// 在庫センター情報画面 検索
 	public static final String CENTER_INFO_SEARCH = "/admin/centerInfo/search";
 	
+	// 在庫センター情報画面 登録
+	public static final String CENTER_INFO_REGISTER = "/admin/centerInfo/register";
+	
+	// 在庫センター情報画面 更新
+	public static final String CENTER_INFO_EDIT = "/admin/centerInfo/edit";
+	
+	// 在庫センター情報画面 削除
+	public static final String CENTER_INFO_DELETE = "/admin/centerInfo/delete";
+	
 	// 分類情報画面
 	public static final String CATEGORY_INFO = "/admin/categoryInfo";
 	

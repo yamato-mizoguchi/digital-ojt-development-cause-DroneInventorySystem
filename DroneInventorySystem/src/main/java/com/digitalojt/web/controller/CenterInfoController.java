@@ -126,10 +126,8 @@ public class CenterInfoController {
 		}
 
 		centerInfoService.registerCenterInfo(form);
-
-		model.addAttribute("centerInfoList", centerInfoService.getCenterInfoData());
-		model.addAttribute("centerInfoForm", new CenterInfoForm());
-		model.addAttribute("successMsg", SuccessMessage.REGISTER_SUCCESS);
+		
+		setViewRegisteredEdited(model, SuccessMessage.REGISTER_SUCCESS);
 
 		return "admin/centerInfo/index";
 	}
@@ -174,11 +172,22 @@ public class CenterInfoController {
 
 		centerInfoService.editCenterInfo(centerInfoEditForm, centerInfo);
 
-		setView(model, centerInfoService.setCenterInfoDTO(), centerInfoForm);
-
-		model.addAttribute("successMsg", SuccessMessage.EDIT_SUCCESS);
-
+		setViewRegisteredEdited(model, SuccessMessage.EDIT_SUCCESS);
+	
 		return "admin/centerInfo/index";
+	}
+	
+	/**
+	 * 登録・更新成功時のビューを渡す
+	 * 
+	 * @param model
+	 * @param successMsg
+	 * @return
+	 */
+	public void setViewRegisteredEdited(Model model, String successMsg) {
+		model.addAttribute("centerInfoList", centerInfoService.getCenterInfoData());
+		model.addAttribute("centerInfoForm", new CenterInfoForm());
+		model.addAttribute("successMsg", successMsg);
 	}
 
 	/**

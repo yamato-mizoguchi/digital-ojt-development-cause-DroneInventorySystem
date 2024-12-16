@@ -31,4 +31,40 @@ public class ErrorMessage {
 	
 	// 文字超過に関するエラーメッセージ
 	public static final String CATEGORY_NAME_LENGTH_ERROR_MESSAGE = "categoryName.length.wrongInput";
+	
+	// 不正な入力値を使用した検索に関するエラーメッセージ
+	public static final String AMOUNT_INVALID_INPUT_ERROR_MESSAGE = "stockInfo.amount.wrongInput";
+	
+	// 不正な入力値を使用した検索に関するエラーメッセージ
+	public static final String AMOUNT_LENGTH_ERROR_MESSAGE = "stockInfo.amount.length.wrongInput";
+
+	public static final String CENTER_CAPACITY_INVALID_INPUT = "centerCapacity.invalid.input";
+
+	public static final String CENTER_CAPACITY_INVALID_LOGIC_INPUT ="centerCapacity.invalid.logic.input";
+	
+	public static final String CENTER_NAME = "centerName";
+	public static final String POST_CODE = "postCode";
+	public static final String ADDRESS = "address";
+	public static final String PHONE_NUMBER = "phoneNumber";
+	public static final String MANAGER_NAME = "managerName";
+	public static final String MAX_STORAGE_CAPACITY = "maxStorageCapacity";
+	public static final String CURRENT_STORAGE_CAPACITY = "currentStorageCapacity";
+	public static final String NOTES = "notes";
+	
+	public static final String FIELD_EMPTY = ".field.empty";
+	public static final String INVALID_INPUT = ".invalid.input";
+	public static final String LENGTH_WRONG_INPUT = ".length.wrongInput";
+	public static final String MIN_INPUT = ".min.input";
+	public static final String MAX_INPUT = ".max.input";
+	public static final String INTEGER_INPUT = ".integer.input";
+	public static final String INVALID_FORMAT = ".invalid.format";
+	public static final String INVALID_LOGIC_INPUT = ".invalid.logic.input";
+	
+	// DB処理時のエラーメッセージ
+	public static final String STOCK_DB_EXCEPTION = "stockInfo.unexpected.exception";
+	// DB処理時のエラーメッセージ
+	public static final String CENTER_DB_EXCEPTION = "centerInfo.unexpected.exception";
+	// 削除しようとしたセンター情報が使用中の場合のエラーメッセージ
+	public static final String STOCK_INFO_USAGE = "centerInfo.stockInfoUsage.exception";
+	
 }

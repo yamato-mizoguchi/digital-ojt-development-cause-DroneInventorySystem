@@ -1,9 +1,16 @@
 package com.digitalojt.web.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +31,18 @@ public class CenterInfo {
 	 * センターID
 	 */
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int centerId;
 	
 	/**
 	 * センター名
 	 */
 	private String centerName;
+
+	/**
+	 * 郵便番号
+	 */
+	private String postCode;
 	
 	/**
 	 * 住所
@@ -54,12 +67,17 @@ public class CenterInfo {
 	/**
 	 * 最大容量
 	 */
-	private String maxStorageCapacity;
+	private Integer maxStorageCapacity;
 	
 	/**
 	 * 現在容量
 	 */
-	private String currentStorageCapacity;
+	private Integer currentStorageCapacity;
+	
+	/**
+	 * 備考
+	 */
+	private String notes;
 	
 	/**
 	 * 論理削除フラグ
@@ -75,4 +93,23 @@ public class CenterInfo {
 	 * 登録日
 	 */
 	private Timestamp createDate;
+	
+	/**
+	 * 在庫情報との一対多のリレーション
+	 */
+	@OneToMany(mappedBy = "centerInfo")
+    private List<StockInfo> stockInfo;
+	
+	@PrePersist
+    public void prePersist() {
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        this.createDate = currentTimestamp;  // 新規作成時に作成日を設定
+        this.updateDate = currentTimestamp;  // 新規作成時に更新日も設定
+    }
+	
+    @PreUpdate
+    public void preUpdate() {
+        // 更新時に、updateDateを現在の時刻に設定
+        this.updateDate = new Timestamp(System.currentTimeMillis());
+    }
 }

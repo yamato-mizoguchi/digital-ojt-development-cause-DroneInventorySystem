@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<title>InvenTrack</title>
+</head>
+
+<body>
+	<div class="card shadow mb-4">
+
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary" style="display: inline-block; margin-right: 10px;">在庫センター情報
+			</h6>
+		</div>
+		<div class="card-body">
+
+			<!-- 在庫センター情報テーブル -->
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>センター名</th>
+							<th>住所</th>
+							<th>連絡先</th>
+							<th>管理者名</th>
+							<th>最大保存容量(㎥)</th>
+							<th>現在保存容量(㎥)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${CenterInfo}">
+							<td> [[${item.centerName}]] </td>
+							<td> [[${item.address}]] </td>
+							<td> [[${item.phoneNumber}]] </td>
+							<td> [[${item.managerName}]] </td>
+							<td> [[${item.maxStorageCapacity}]] </td>
+							<td> [[${item.currentStorageCapacity}]] </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<p class="text-danger">以上の情報を削除しますか？</p>
+			</div>
+			<!-- 削除ボタン -->
+			<div class="form-row form-group">
+				<div class="col-md-12">
+					<a th:href="@{/admin/centerInfo}" class="btn btn-primary"
+						style="display: inline-block; margin-right: 10px;">一覧に戻る</a>
+						<!-- 削除フォーム -->
+						<form th:action="@{/admin/centerInfo/delete/{centerId}(centerId=${CenterInfo.centerId})}" method="post" style="display: inline-block; margin-left: 20px;">
+						    <!-- 隠しフィールドでcenterIdを送信 -->
+						    <input type="hidden" name="centerId" th:value="${CenterInfo.centerId}" />
+						    <button type="submit" class="btn btn-danger" >削除</button>
+						</form>
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>

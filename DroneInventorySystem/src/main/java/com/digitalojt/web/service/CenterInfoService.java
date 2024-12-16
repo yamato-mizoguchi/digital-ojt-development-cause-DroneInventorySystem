@@ -1,13 +1,24 @@
 package com.digitalojt.web.service;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.digitalojt.web.DTO.CenterInfoDTO;
+import com.digitalojt.web.consts.ErrorMessage;
+import com.digitalojt.web.consts.LogMessage;
+import com.digitalojt.web.consts.Region;
 import com.digitalojt.web.entity.CenterInfo;
+import com.digitalojt.web.exception.CenterInfoException;
+import com.digitalojt.web.form.CenterInfoEditForm;
+import com.digitalojt.web.form.CenterInfoForm;
+import com.digitalojt.web.form.CenterInfoRegisterForm;
 import com.digitalojt.web.repository.CenterInfoRepository;
+import com.digitalojt.web.repository.StockInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +33,13 @@ import lombok.RequiredArgsConstructor;
 public class CenterInfoService {
 
 	/** センター情報テーブル リポジトリー */
-	private final CenterInfoRepository repository;
+	private final CenterInfoRepository centerInfoRepository;
+
+	/** 在庫情報テーブル リポジトリー */
+	private final StockInfoRepository stockInfoRepository;
+
+	/** ログのカテゴリ　画面名の取得*/
+	private static Logger logger = LoggerFactory.getLogger(LogMessage.CENTER_INFO);
 
 	/**
 	 * 在庫センター情報を全件検索で取得
@@ -31,10 +48,28 @@ public class CenterInfoService {
 	 */
 	public List<CenterInfo> getCenterInfoData() {
 
-		// 在庫センター情報作成
-		List<CenterInfo> centerInfoList = createCenterInfo();
+		try {
+			// 在庫センター情報作成
+			List<CenterInfo> centerInfoList = centerInfoRepository.findAllOperationalStatus0DeleteFlag0();
 
-		return centerInfoList;
+			return centerInfoList;
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+	}
+
+	/**
+	 * 在庫センター情報を全件検索で取得
+	 * 
+	 * @return
+	 */
+	public CenterInfo getCenterInfoData(Integer centerId) {
+
+		try {
+			return centerInfoRepository.findById(centerId).orElseThrow();
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
 	}
 
 	/**
@@ -46,99 +81,152 @@ public class CenterInfoService {
 	 * @param storageCapacityTo
 	 * @return 
 	 */
-	public List<CenterInfo> getCenterInfoData(String centerName, String region) {
+	public List<CenterInfo> getCenterInfoData(String centerName, String region, Integer storageCapacityFrom,
+			Integer storageCapacityTo) {
 
-		// 在庫センター情報作成
-		List<CenterInfo> centerInfoList = createCenterInfo();
+		try {
+			// センター検索処理開始のログ
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.SEARCH_START);
 
-		// 検索処理
-		centerInfoList = searchCenterInfoData(centerInfoList, centerName, region);
+			List<CenterInfo> centerInfoList = centerInfoRepository.findByCenterNameAndRegionAndStorageCapacity(
+					centerName, region,
+					storageCapacityFrom, storageCapacityTo);
 
-		return centerInfoList;
+			// センター検索処理正常終了のログ
+			logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS
+					+ LogMessage.SearchResult(centerInfoList));
+
+			return centerInfoList;
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
 	}
 
 	/**
-	 * 検索処理
+	 * 未検索時とバリデーションエラー時、画面表示用にデータを取得
 	 * 
-	 * @param centerInfoList
-	 * @param centerName
-	 * @param region 
-	 * @return
+	 * @param form
+	 * @return 在庫センター情報画面DTO
 	 */
-	private List<CenterInfo> searchCenterInfoData(List<CenterInfo> centerInfoList, String centerName, String region) {
+	public CenterInfoDTO setCenterInfoDTO() {
+		CenterInfoDTO centerInfoDTO = new CenterInfoDTO();
 
-		List<CenterInfo> hitCenterInfoList = new ArrayList<>();
-		
-		// 引数の文字列と合致する要素のみリストに追加
-		centerInfoList.forEach(item -> {
-			if (centerName.equals(item.getCenterName()) && region.equals(item.getAddress())
-					|| StringUtils.isEmpty(centerName) && item.getAddress().contains(region)
-					|| StringUtils.isEmpty(region) && item.getCenterName().contains(centerName)) {
-				hitCenterInfoList.add(item);
+		centerInfoDTO.setCenterInfoList(getCenterInfoData());
+		centerInfoDTO.setRegions(Arrays.asList(Region.values()));
+
+		return centerInfoDTO;
+	}
+
+	/**
+	 * バリデーション突破時、画面表示用にデータを取得
+	 * 
+	 * @param form
+	 * @return 在庫センター情報画面DTO
+	 */
+	public CenterInfoDTO setCenterInfoDTO(CenterInfoForm form) {
+		CenterInfoDTO centerInfoDTO = new CenterInfoDTO();
+
+		centerInfoDTO.setCenterInfoList(getCenterInfoData(form.getCenterName(), form.getRegion(),
+				((form.getStorageCapacityFrom() == null) ? null : Integer.parseInt(form.getStorageCapacityFrom())),
+				(form.getStorageCapacityTo() == null) ? null : Integer.parseInt(form.getStorageCapacityTo())));
+		centerInfoDTO.setRegions(Arrays.asList(Region.values()));
+
+		return centerInfoDTO;
+	}
+
+	/**
+	 * 在庫センター情報新規登録
+	 * 
+	 * @param form
+	 */
+	@Transactional
+	public void registerCenterInfo(CenterInfoRegisterForm form) {
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.REGISTER_START);
+
+		try {
+			CenterInfo centerInfo = new CenterInfo();
+			centerInfo.setCenterName(form.getCenterName());
+			centerInfo.setPostCode(form.getPostCode());
+			centerInfo.setAddress(form.getAddress());
+			centerInfo.setPhoneNumber(form.getPhoneNumber());
+			centerInfo.setManagerName(form.getManagerName());
+			centerInfo.setOperationalStatus(form.getOperationalStatus());
+			centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
+			centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
+			centerInfo.setNotes(form.getNotes());
+			centerInfo.setDeleteFlag("0");
+
+			centerInfoRepository.save(centerInfo); // 保存
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.REGISTER_END);
+	}
+
+	/**
+	 * 在庫センター情報更新
+	 * 
+	 * @param form
+	 * @param CenterInfo
+	 */
+	@Transactional
+	public void editCenterInfo(CenterInfoEditForm form, CenterInfo centerInfo) {
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.EDIT_START);
+
+		try {
+			centerInfo.setCenterName(form.getCenterName());
+			centerInfo.setPostCode(form.getPostCode());
+			centerInfo.setAddress(form.getAddress());
+			centerInfo.setPhoneNumber(form.getPhoneNumber());
+			centerInfo.setManagerName(form.getManagerName());
+			centerInfo.setOperationalStatus(form.getOperationalStatus());
+			centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
+			centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
+			centerInfo.setNotes(form.getNotes());
+			centerInfo.setDeleteFlag("0");
+
+			centerInfoRepository.save(centerInfo); // 保存
+		} catch (Exception e) {
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.EDIT_END);
+	}
+
+	/**
+	 * 在庫センター情報削除
+	 * 
+	 * @param centerId
+	 */
+	@Transactional
+	public void deleteCenterInfo(Integer centerId) {
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.DELETE_START);
+
+		try {
+			CenterInfo centerInfo = getCenterInfoData(centerId);
+
+			// 在庫情報が存在する場合、例外をスロー
+			if (!stockInfoRepository.findByCenterId(centerId).isEmpty()) {
+				throw new CenterInfoException(ErrorMessage.STOCK_INFO_USAGE);
+			} else {
+				centerInfo.setDeleteFlag("1"); // 削除フラグを設定
+				centerInfoRepository.save(centerInfo); // 保存
 			}
-		});
 
-		return hitCenterInfoList;
+		} catch (CenterInfoException e) {
+			// STOCK_INFO_USAGEエラーの場合はそのまま再スロー
+			if (ErrorMessage.STOCK_INFO_USAGE.equals(e.getMessage())) {
+				throw e; // 例外を再スローして@ExceptionHandlerで捕まえる
+			} else {
+				throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION); // その他の例外
+			}
+		} catch (Exception e) {
+			// その他の例外はCENTER_DB_EXCEPTIONをスロー
+			throw new CenterInfoException(ErrorMessage.CENTER_DB_EXCEPTION);
+		}
+
+		logger.info(LogMessage.POST + LogMessage.APPLICATION_LOG + LogMessage.SUCCESS + LogMessage.DELETE_END);
 	}
-
-	/**
-	 * 在庫センター情報作成
-	 * 
-	 * @return
-	 */
-	private List<CenterInfo> createCenterInfo() {
-
-		List<CenterInfo> centerInfoList = new ArrayList<>();
-
-		// 1コード目作成
-		CenterInfo centerInfo = new CenterInfo();
-		centerInfo.setCenterName("東京物流センター");
-		centerInfo.setAddress("東京都港区芝公園4-2-8");
-		centerInfo.setPhoneNumber("03-1234-5678");
-		centerInfo.setManagerName("田中 太郎");
-		centerInfoList.add(centerInfo);
-
-		// 2コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("大阪物流センター");
-		centerInfo.setAddress("大阪府大阪市北区梅田1-1-3");
-		centerInfo.setPhoneNumber("06-8765-4321");
-		centerInfo.setManagerName("鈴木 一郎");
-		centerInfoList.add(centerInfo);
-
-		// 3コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("名古屋物流センター");
-		centerInfo.setAddress("愛知県名古屋市中村区名駅3-2-1");
-		centerInfo.setPhoneNumber("052-123-4567");
-		centerInfo.setManagerName("佐藤 花子");
-		centerInfoList.add(centerInfo);
-
-		// 4コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("仙台物流センター");
-		centerInfo.setAddress("宮城県仙台市青葉区一番町4-4-1");
-		centerInfo.setPhoneNumber("022-234-5678");
-		centerInfo.setManagerName("中田 太郎");
-		centerInfoList.add(centerInfo);
-
-		// 5コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("福岡物流センター");
-		centerInfo.setAddress("福岡県福岡市博多区博多駅前2-1-1");
-		centerInfo.setPhoneNumber("092-234-5678");
-		centerInfo.setManagerName("近藤 一郎");
-		centerInfoList.add(centerInfo);
-
-		// 6コード目作成
-		centerInfo = new CenterInfo();
-		centerInfo.setCenterName("北海道物流センター");
-		centerInfo.setAddress("北海道札幌市中央区大通西3-6");
-		centerInfo.setPhoneNumber("011-234-5678");
-		centerInfo.setManagerName("小池 花子");
-		centerInfoList.add(centerInfo);
-
-		return centerInfoList;
-	}
-
 }

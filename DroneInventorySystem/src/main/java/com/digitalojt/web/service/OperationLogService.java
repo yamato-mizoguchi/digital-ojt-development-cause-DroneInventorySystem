@@ -63,7 +63,6 @@ public class OperationLogService {
 					String operationStatus = convertOperationStatus(log.getStatus());
 
 					// 加工した情報を設定
-					//					log.setTableKey(adminName);
 					log.setTableKey(screenName);
 					log.setOperateType(operateType);
 					log.setStatus(operationStatus);

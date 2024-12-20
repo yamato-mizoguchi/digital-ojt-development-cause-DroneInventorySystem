@@ -1,5 +1,7 @@
 package com.digitalojt.web.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * 操作履歴画面のサービスクラス
  *
- * @author your name
+ * @author yamato mizoguchi
  * 
  */
 @Service
@@ -32,9 +34,9 @@ public class OperationLogService {
 	 * @return
 	 */
 	public List<OperationLog> getOperationLogList() {
-
-		// 操作履歴情報の取得
-		List<OperationLog> operationLogList = repository.findAll();
+		// 1か月以内の操作履歴情報の取得
+		LocalDateTime oneMonthAgo = LocalDateTime.now().minus(1, ChronoUnit.MONTHS);
+		List<OperationLog> operationLogList = repository.findLogsFromLastMonth(oneMonthAgo);
 
 		// 画面表示用にデータ加工した結果を返却
 		return convertoperationLogList(operationLogList);
@@ -51,9 +53,6 @@ public class OperationLogService {
 		return operationLogList.stream()
 				.map(log -> {
 
-					// 管理者名取得
-					String adminName = log.getAdminInfo().getAdminName();
-
 					// 画面名の変換
 					String screenName = convertTableKey(log.getTableKey());
 
@@ -64,7 +63,7 @@ public class OperationLogService {
 					String operationStatus = convertOperationStatus(log.getStatus());
 
 					// 加工した情報を設定
-					log.setTableKey(adminName);
+					//					log.setTableKey(adminName);
 					log.setTableKey(screenName);
 					log.setOperateType(operateType);
 					log.setStatus(operationStatus);

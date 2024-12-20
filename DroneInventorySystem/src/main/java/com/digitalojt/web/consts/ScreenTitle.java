@@ -1,13 +1,12 @@
 package com.digitalojt.web.consts;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 画面名Enum
  * 
- * @author dotlife kijima
+ * @author yamato mizoguchi
  *
  */
 public enum ScreenTitle {
@@ -17,6 +16,14 @@ public enum ScreenTitle {
 
 	private final String tableKey; // テーブルキー
 	private final String screenName; // 画面名
+
+	private static final Map<String, ScreenTitle> TABLE_KEY_MAP = new HashMap<>();
+
+	static {
+		for (ScreenTitle title : values()) {
+			TABLE_KEY_MAP.put(title.getTableKey(), title);
+		}
+	}
 
 	ScreenTitle(String tableKey, String screenName) {
 		this.tableKey = tableKey;
@@ -38,22 +45,21 @@ public enum ScreenTitle {
 	 * @return
 	 */
 	public static String fromTableKey(String tableKey) {
-		for (ScreenTitle title : values()) {
-			if (title.getTableKey().equals(tableKey)) {
-				return title.getScreenName();
-			}
+		ScreenTitle title = TABLE_KEY_MAP.get(tableKey);
+		if(title != null) {
+			return title.getScreenName();
 		}
-		return "不明な画面"; // 定義されていない場合のデフォルト値
+		return "不明な画面";
 	}
 
-	/**
-	 * 画面名の一覧を取得
-	 * 
-	 * @return
-	 */
-	public static List<String> getScreenNames() {
-		return Arrays.stream(ScreenTitle.values())
-				.map(ScreenTitle::getScreenName)
-				.collect(Collectors.toList());
-	}
+	//	/**
+	//	 * 画面名の一覧を取得
+	//	 * 
+	//	 * @return
+	//	 */
+	//	public static List<String> getScreenNames() {
+	//		return Arrays.stream(ScreenTitle.values())
+	//				.map(ScreenTitle::getScreenName)
+	//				.collect(Collectors.toList());
+	//	}
 }

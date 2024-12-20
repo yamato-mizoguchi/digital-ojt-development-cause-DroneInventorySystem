@@ -1,13 +1,12 @@
 package com.digitalojt.web.consts;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 操作ステータスEnum
  * 
- * @author dotlife kijima
+ * @author yamato mizoguchi
  *
  */
 public enum OperationStatus {
@@ -17,7 +16,15 @@ public enum OperationStatus {
 
 	private final String statusCode; // ステータスコード
 	private final String statusName; // ステータスの表示文言
+	
+	private static final Map<String, OperationStatus> OPERATION_STATUS_MAP = new HashMap<>();
 
+	static {
+		for (OperationStatus status : values()) {
+			OPERATION_STATUS_MAP.put(status.getStatusCode(), status);
+		}
+	}
+	
 	OperationStatus(String statusCode, String statusName) {
 		this.statusCode = statusCode;
 		this.statusName = statusName;
@@ -38,18 +45,17 @@ public enum OperationStatus {
 	 * @return 操作ステータス名 (該当しない場合は "不明なステータス" を返す)
 	 */
 	public static String fromStatusCode(String statusCode) {
-		for (OperationStatus status : values()) {
-			if (status.getStatusCode().equals(statusCode)) {
-				return status.getStatusName();
-			}
+		OperationStatus status = OPERATION_STATUS_MAP.get(statusCode);
+		if(status != null) {
+			return status.getStatusName();
 		}
-		return "不明なステータス"; // デフォルト値
+		return "不明なステータス";
 	}
-	
-	// 操作ステータスの一覧を取得
-	public static List<String> getStatusNames() {
-		return Arrays.stream(OperationStatus.values())
-				.map(OperationStatus::getStatusName)
-				.collect(Collectors.toList());
-	}
+
+//	// 操作ステータスの一覧を取得
+//	public static List<String> getStatusNames() {
+//		return Arrays.stream(OperationStatus.values())
+//				.map(OperationStatus::getStatusName)
+//				.collect(Collectors.toList());
+//	}
 }

@@ -54,7 +54,7 @@ public class UrlConsts {
 	public static final String  OPERATION_LOG = "/admin/operationLog";
 	
 	// 操作履歴画面 検索
-	public static final String  OPERATION_LOG_SEARCH = "/admin/operationLog/search";
+//	public static final String  OPERATION_LOG_SEARCH = "/admin/operationLog/search";
 
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = {LOGIN, AUTHENTICATE};

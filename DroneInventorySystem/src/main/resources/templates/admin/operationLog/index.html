@@ -99,40 +99,40 @@
 				</form>
 				 -->
 
-				<!-- エラーメッセージの表示 -->
-				<div th:if="${errorMsg != null}" class="error-message">
-					<p th:text="${errorMsg}"></p>
-				</div>
+			<!-- エラーメッセージの表示 -->
+			<div th:if="${errorMsg != null}" class="error-message">
+				<p th:text="${errorMsg}"></p>
 			</div>
-
-			<!-- 操作履歴テーブル -->
-			<h6 class="mb-3 font-weight-bold"></h6>
-			<div class="table-responsive" style="height: 500px;">
-				<div class="table-scrollable">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th>管理者名</th>
-								<th>画面名</th>
-								<th>操作</th>
-								<th>ステータス</th>
-								<th>操作時刻</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="item : ${operationLogList}">
-								<td>[[${item.adminInfo.adminName}]]</td>
-								<td>[[${item.tableKey}]]</td>
-								<td>[[${item.operateType}]]</td>
-								<td>[[${item.status}]]</td>
-								<td>[[${item.createDate}]]</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
 		</div>
+
+		<!-- 操作履歴テーブル -->
+		<h6 class="mb-3 font-weight-bold"></h6>
+		<div class="table-responsive" style="height: 500px;">
+			<div class="table-scrollable">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>管理者名</th>
+							<th>画面名</th>
+							<th>操作</th>
+							<th>ステータス</th>
+							<th>操作時刻</th>
+						</tr>
+					</thead>
+					<tbody th:if="${not #lists.isEmpty(operationLogList)}">
+						<tr th:each="item : ${operationLogList}">
+							<td>[[${item.adminInfo.adminName}]]</td>
+							<td>[[${item.tableKey}]]</td>
+							<td>[[${item.operateType}]]</td>
+							<td>[[${item.status}]]</td>
+							<td>[[${item.createDate}]]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
 	</div>
 </body>
 

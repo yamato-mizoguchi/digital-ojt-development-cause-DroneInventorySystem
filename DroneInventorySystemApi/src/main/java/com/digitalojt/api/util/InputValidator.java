@@ -7,6 +7,12 @@ import com.digitalojt.api.exception.InvalidInputException;
 import com.digitalojt.api.service.AdminInfoService;
 import com.digitalojt.api.service.OperationLogService;
 
+/**
+ * バリデーションクラス
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 @Component
 public class InputValidator {
 

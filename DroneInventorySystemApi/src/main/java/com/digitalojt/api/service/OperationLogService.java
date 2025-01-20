@@ -10,6 +10,12 @@ import com.digitalojt.api.repository.OperationLogRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 操作履歴サービスクラス
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class OperationLogService {

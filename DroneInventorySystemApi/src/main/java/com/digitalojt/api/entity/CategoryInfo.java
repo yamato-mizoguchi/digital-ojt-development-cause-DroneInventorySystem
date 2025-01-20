@@ -13,12 +13,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 分類情報Entity
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="category_info")
-
 public class CategoryInfo {
 
 	@Id

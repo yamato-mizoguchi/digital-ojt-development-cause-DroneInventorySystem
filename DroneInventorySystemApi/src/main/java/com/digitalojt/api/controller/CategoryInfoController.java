@@ -13,6 +13,12 @@ import com.digitalojt.api.service.CategoryInfoService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * API分類情報コントローラークラス
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/categoryinfo")

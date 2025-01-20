@@ -7,6 +7,12 @@ import com.digitalojt.api.repository.AdminInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 管理者情報サービスクラス
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class AdminInfoService {

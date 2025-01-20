@@ -1,3 +1,10 @@
+/**
+ * API在庫一覧のクライアントサイドスクリプト
+ * 
+ * @author yamato mizoguchi
+ *
+ */
+
 // メッセージを一元管理するオブジェクト
 const MESSAGES = {
     unexpectedError: '※予期せぬエラーが発生しました。',
@@ -21,7 +28,13 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchAllCategories(); // 初期表示で全分類を取得して表示
     fetchAllStockNames();  // 初期表示で全在庫名称を取得して表示
     fetchAllStockInfo();   // 初期表示で全在庫情報を取得してテーブルに表示
+	displayCurrentYear();	// 現在の年を表示
 });
+
+// 現在の年を取得して表示する関数
+function displayCurrentYear() {
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+}
 
 // 全分類情報を取得して表示する関数
 async function fetchAllCategories() {
@@ -130,15 +143,15 @@ function displayStockInfo(data) {
     thead.appendChild(headerRow);
 
     // テーブルボディの作成
-    data.forEach(stockInfoListDTO => {
+    data.forEach(stockInfoDTO => {
         const row = document.createElement('tr');
 
         const cells = [
-            stockInfoListDTO.categoryName,
-            stockInfoListDTO.name,
-            stockInfoListDTO.amount,
-            stockInfoListDTO.centerName,
-            stockInfoListDTO.description
+            stockInfoDTO.categoryName,
+            stockInfoDTO.name,
+            stockInfoDTO.amount,
+            stockInfoDTO.centerName,
+            stockInfoDTO.description
         ];
 
         cells.forEach(cellText => {
@@ -164,31 +177,33 @@ async function handleSubmit(event) {
     const amount = document.getElementById('amount').value;
     const amountCondition = document.getElementById('amountCondition').value;
 
-    // DTOの形でデータを作成
-    const stockInfoSearchCriteriaDTO = {
-        categoryId: categoryId || null,
-        name: name || null,
-        amountMin: null,
-        amountMax: null
-    };
+    // クエリパラメータを作成
+    let queryParams = [];
 
-    // amount と amountCondition に基づいて amountMin または amountMax を設定
+    if (categoryId) {
+        queryParams.push(`categoryId=${encodeURIComponent(categoryId)}`);
+    }
+    if (name) {
+        queryParams.push(`name=${encodeURIComponent(name)}`);
+    }
     if (amount) {
         if (amountCondition === 'greater') {
-            stockInfoSearchCriteriaDTO.amountMin = amount;
+            queryParams.push(`amountMax=${encodeURIComponent(amount)}`);
         } else if (amountCondition === 'less') {
-            stockInfoSearchCriteriaDTO.amountMax = amount;
+            queryParams.push(`amountMin=${encodeURIComponent(amount)}`);
         }
     }
 
-    // サーバーに送信するデータをJSON形式で作成
+    // クエリパラメータをURLとして組み立て
+    const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
+
+    // サーバーにGETリクエストを送信
     try {
-        const response = await fetch(API_ENDPOINTS.searchStockInfo, {
-            method: 'POST',
+        const response = await fetch(API_ENDPOINTS.searchStockInfo + queryString, {
+            method: 'GET', // GETメソッドを使用
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(stockInfoSearchCriteriaDTO) // DTOをそのまま送信
+            }
         });
 
         if (response.ok) {

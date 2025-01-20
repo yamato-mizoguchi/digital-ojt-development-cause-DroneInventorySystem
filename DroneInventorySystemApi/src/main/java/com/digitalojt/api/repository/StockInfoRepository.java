@@ -8,6 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.digitalojt.api.entity.StockInfo;
 
+/**
+ * 在庫情報リポジトリ
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 
 	/**
@@ -21,7 +27,7 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 			"JOIN FETCH s.centerInfo " + //n+1問題対策
 			"WHERE (:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
 			"(s.deleteFlag = false)")
-	List<StockInfo> findByCategoryId(Long categoryId);
+	List<StockInfo> findByCategoryId(Integer categoryId);
 
 	/**
 	 * 在庫情報を複数の検索条件に基づいてフィルタリングして取得するクエリ。
@@ -41,7 +47,7 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 			+ "(:amountMax IS NULL OR s.amount <= :amountMax) AND "
 			+ "(s.deleteFlag = false)")
 	List<StockInfo> findByStockInfo(
-			@Param("categoryId") String categoryId,
+			@Param("categoryId") Integer categoryId,
 			@Param("name") String name,
 			@Param("amountMin") Integer amountMin,
 			@Param("amountMax") Integer amountMax);

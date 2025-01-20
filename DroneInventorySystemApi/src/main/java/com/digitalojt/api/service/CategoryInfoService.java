@@ -11,6 +11,12 @@ import com.digitalojt.api.repository.CategoryInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 分類情報サービスクラス
+ * 
+ * @author yamato mizoguchi
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class CategoryInfoService {

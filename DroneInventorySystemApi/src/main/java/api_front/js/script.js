@@ -205,7 +205,6 @@ async function handleSubmit(event) {
                 'Content-Type': 'application/json'
             }
         });
-
         if (response.ok) {
             const data = await response.json(); // 正常なレスポンス
             displayStockInfo(data); // レスポンスのデータを表示
@@ -214,11 +213,15 @@ async function handleSubmit(event) {
             const errorMessage = await response.text();
             throw new Error(errorMessage);  // エラーをスロー
         } else {
-            throw new Error(MESSAGES.unexpectedError);
+            throw new Error(MESSAGES.searchError);
         }
     } catch (error) {
         console.error(MESSAGES.searchError, error);
-        displayErrorMessage(error.message || MESSAGES.unexpectedError);  // エラーメッセージ表示
+		if(error.message === 'Failed to fetch'){ // Failed to fetchがそのまま画面上に表示されないようにする
+			displayErrorMessage(MESSAGES.searchError);
+		}else{
+			displayErrorMessage(error.message);
+		}
     }
 }
 

@@ -18,39 +18,39 @@
 	<div id="wrapper">
 		<!-- Sidebar -->
 		<div id="sidebar">
-		<div id="navbar">
-			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+			<div id="navbar">
+				<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-					<div class="sidebar-brand-text mx-3">InvenTrack</sup></div>
-				</a>
-
-				<!-- Divider -->
-				<hr class="sidebar-divider my-0" />
-
-				<!-- Heading -->
-				<!-- <div class="sidebar-heading">Interface</div> -->
-
-				<!-- Nav Item - Dashboard -->
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<span>在庫一覧</span>
-					</a>
-					<a class="nav-link" href="#">
-						<span>分類情報管理</span>
-					</a>
-					<a class="nav-link" href="#">
-						<span>在庫センター情報</span>
-					</a>
-					<a class="nav-link" href="#">
-						<span>操作履歴</span>
+					<!-- Sidebar - Brand -->
+					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+						<div class="sidebar-brand-text mx-3">InvenTrack</sup></div>
 					</a>
 
-				</li>
+					<!-- Divider -->
+					<hr class="sidebar-divider my-0" />
 
-			</ul>
-		</div>
+					<!-- Heading -->
+					<!-- <div class="sidebar-heading">Interface</div> -->
+
+					<!-- Nav Item - Dashboard -->
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<span>在庫一覧</span>
+						</a>
+						<a class="nav-link" href="#">
+							<span>分類情報管理</span>
+						</a>
+						<a class="nav-link" href="#">
+							<span>在庫センター情報</span>
+						</a>
+						<a class="nav-link" href="#">
+							<span>操作履歴</span>
+						</a>
+
+					</li>
+
+				</ul>
+			</div>
 		</div>
 
 		<!-- Content Wrapper -->
@@ -95,7 +95,7 @@
 					</div>
 					<!-- 検索フォーム -->
 					<div class="search-container">
-						<form class="form-inline" method="post" action="#" onsubmit="handleSubmit(event)">
+						<form class="form-inline" method="post" action="#" id="searchForm">
 							<label for="searchTerm" class="mr-2"><u>検索条件</u></label>
 
 							<label for="categoryId" class="mr-2">分類</label>
@@ -120,10 +120,9 @@
 						</form>
 
 						<!-- エラーメッセージの表示 -->
-						<div id="errorMsg" class="text-danger" style="display: none;">
-							<p>検索条件に誤りがあります。</p>
-						</div>
+						<div id="errorMsg" class="text-danger" style="display: none;"></div>
 					</div>
+
 					<div id="stockinfo-list"></div>
 				</div>
 			</div>

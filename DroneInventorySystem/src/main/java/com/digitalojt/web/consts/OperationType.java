@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public enum OperationType {
 
-	CREATE("1", "登録"), UPDATE("2", "更新"), DELETE("3", "削除");
+	CREATE("1", "登録"), UPDATE("2", "更新"), DELETE("3", "削除"), SEARCH("4", "検索");
 
 	private final String typeCode; // 操作タイプのコード
 	private final String typeName; // 操作タイプの表示文言
